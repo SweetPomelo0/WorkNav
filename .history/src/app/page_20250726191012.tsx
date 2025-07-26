@@ -115,9 +115,9 @@ export default function Home() {
                >
                  <span className="relative z-10">{category.title}</span>
                  <span 
-                  className="absolute bottom-0 left-0 w-full h-0.5 rounded-full opacity-30"
-                  style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
-                ></span>
+                   className="absolute bottom-0 left-0 w-full h-1 rounded-full opacity-30"
+                   style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
+                 ></span>
                </h2>
                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                  {category.links.map((link, linkIndex) => (
@@ -130,10 +130,15 @@ export default function Home() {
                        borderColor: 'var(--card-border)',
                        background: 'var(--card-bg)'
                      }}
-                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
+                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative overflow-hidden"
                    >
-
-                     <div className="flex items-center justify-between">
+                     {/* 背景装饰元素 */}
+                     <div 
+                       className="absolute -right-12 -bottom-12 w-24 h-24 rounded-full opacity-5 transition-transform duration-300 group-hover:scale-150"
+                       style={{ background: 'var(--accent)' }}
+                     ></div>
+                     
+                     <div className="flex items-center justify-between relative z-10">
                        <div className="flex items-center flex-1">
                          <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
                            {link.icon ? (

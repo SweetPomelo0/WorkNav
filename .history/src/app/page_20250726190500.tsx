@@ -1,5 +1,4 @@
 export default function Home() {
-  // 定义导航分类和链接
   const categories = [
     {
       title: "常用",
@@ -86,123 +85,66 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--text-primary)' }}>
+    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100">
       {/* Header */}
-      <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-10">
+      <header className="py-16">
+        <div className="max-w-6xl mx-auto px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-3 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">WorkNav</h1>
-            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>工作网址导航</p>
+            <h1 className="text-5xl font-light mb-4 tracking-wide">WorkNav</h1>
+            <div className="w-12 h-px bg-gray-300 dark:bg-gray-700 mx-auto"></div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-       <main className="max-w-7xl mx-auto px-6 py-12">
-         <div className="space-y-10">
+       <main className="max-w-6xl mx-auto px-8 pb-20">
+         <div className="space-y-16">
            {categories.map((category, index) => (
-             <div 
-               key={index} 
-               style={{ 
-                 background: 'var(--card-bg)', 
-                 borderColor: 'var(--card-border)' 
-               }} 
-               className="rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg"
-             >
-               <h2 
-                 className="text-xl font-semibold mb-6 relative inline-block"
-                 style={{ color: 'var(--text-primary)' }}
-               >
-                 <span className="relative z-10">{category.title}</span>
-                 <span 
-                  className="absolute bottom-0 left-0 w-full h-0.5 rounded-full opacity-30"
-                  style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
-                ></span>
+             <section key={index} className="">
+               <h2 className="text-sm font-medium tracking-widest uppercase text-gray-500 dark:text-gray-400 mb-8 pl-1">
+                 {category.title}
                </h2>
-               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                  {category.links.map((link, linkIndex) => (
                    <a
                      key={linkIndex}
                      href={link.url}
                      target="_blank"
                      rel="noopener noreferrer"
-                     style={{ 
-                       borderColor: 'var(--card-border)',
-                       background: 'var(--card-bg)'
-                     }}
-                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
+                     className="group block p-6 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors duration-300 rounded-lg"
                    >
-
-                     <div className="flex items-center justify-between">
-                       <div className="flex items-center flex-1">
-                         <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
-                           {link.icon ? (
-                             <img 
-                               src={link.icon} 
-                               alt={`${link.name} icon`}
-                               className="w-6 h-6 object-contain"
-                             />
-                           ) : (
-                             <div 
-                               style={{ background: 'var(--card-hover)' }}
-                               className="w-6 h-6 rounded-md flex items-center justify-center"
-                             >
-                               <span style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
-                                 {link.name.charAt(0).toUpperCase()}
-                               </span>
-                             </div>
-                           )}
-                         </div>
-                         <div className="flex-1">
-                           <h3 
-                             style={{ color: 'var(--text-primary)' }}
-                             className="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                           >
-                             {link.name}
-                           </h3>
-                           <p 
-                             style={{ color: 'var(--text-secondary)' }}
-                             className="text-sm mt-1"
-                           >
-                             {link.desc}
-                           </p>
-                         </div>
+                     <div className="flex items-start space-x-4">
+                       <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center">
+                         {link.icon ? (
+                           <img 
+                             src={link.icon} 
+                             alt={`${link.name} icon`}
+                             className="w-7 h-7 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                           />
+                         ) : (
+                           <div className="w-7 h-7 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                             <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                               {link.name.charAt(0).toUpperCase()}
+                             </span>
+                           </div>
+                         )}
                        </div>
-                       <svg
-                         className="w-4 h-4 transition-colors ml-3 flex-shrink-0 group-hover:translate-x-1"
-                         style={{ color: 'var(--text-tertiary)' }}
-                         fill="none"
-                         stroke="currentColor"
-                         viewBox="0 0 24 24"
-                       >
-                         <path
-                           strokeLinecap="round"
-                           strokeLinejoin="round"
-                           strokeWidth={2}
-                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                         />
-                       </svg>
+                       <div className="flex-1 min-w-0">
+                         <h3 className="font-medium text-gray-900 dark:text-gray-100 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors mb-1">
+                           {link.name}
+                         </h3>
+                         <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                           {link.desc}
+                         </p>
+                       </div>
                      </div>
                    </a>
                  ))}
                </div>
-             </div>
+             </section>
            ))}
          </div>
        </main>
-
-      {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--card-border)', background: 'var(--footer-bg)' }} className="mt-16">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="text-center">
-            <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2024 WorkNav. Cathy的工作导航站
-              <span className="inline-block mx-2 opacity-50">•</span>
-              <span className="opacity-70">极简风格</span>
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

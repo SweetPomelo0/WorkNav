@@ -1,5 +1,4 @@
 export default function Home() {
-  // 定义导航分类和链接
   const categories = [
     {
       title: "常用",
@@ -20,41 +19,8 @@ export default function Home() {
         { name: "Gemini", url: "https://gemini.google.com/app", desc: "AI问答 搜索 翻译", icon: "https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png" },
         { name: "Claude", url: "https://claude.ai/", desc: "生成 优化 解释代码", icon: "https://claude.ai/favicon.ico" },
         { name: "Kimi", url: "https://www.kimi.com/", desc: "国产AI大模型", icon: "https://www.kimi.com/favicon.ico" },
-        { name: "沉浸式翻译", url: "https://immersivetranslate.com/zh-Hans/?utm_source=ai-bot.cn", desc: "中英对照的网页翻译插件", icon: "https://immersivetranslate.com/favicon.ico" },
-        { name: "Midjourney", url: "https://www.midjourney.com/explore?tab=video_top", desc: "AI驱动的图像生成工具", icon: "/img/mj.png" },
-        { name: "即梦", url: "https://jimeng.jianying.com/ai-tool/home", desc: "AI图片/视频生成", icon: "/img/jimeng.png" }
+        { name: "Immersive Translate", url: "https://immersivetranslate.com/zh-Hans/?utm_source=ai-bot.cn", desc: "翻译工具", icon: "https://immersivetranslate.com/favicon.ico" }
 
-      ]
-    },
-    {
-      title: "竞品",
-      links: [
-        { name: "Disguise", url: "https://www.disguise.one/en", desc: "Disguise", icon: "/img/disguise.png" },
-        { name: "Pixera", url: "https://pixera.one/zh/software/overview/", desc: "Pixera", icon: "/img/pixera.png" },
-        { name: "Watchout", url: "https://www.dataton.com/", desc: "Dataton watchout", icon: "/img/watchout.png" },
-        { name: "Resolume", url: "https://resolume.com/", desc: "Resolume", icon: "https://resolume.com/images/favicons/apple-touch-icon.png" },
-        { name: "Smode", url: "https://www.smode.io/en/", desc: "Smode", icon: "/img/smode.png" },
-        { name: "Green Hippo", url: "https://www.green-hippo.com/", desc: "Green Hippo", icon: "https://www.green-hippo.com/wp-content/themes/greenhippo/assets/icons/favicon.ico" },
-        { name: "Millumin", url: "https://millumin.com/v5/index.php", desc: "Millumin", icon: "https://www.millumin.com/favicon/apple-icon-180x180.png" },
-        { name: "Christie Pandoras Box", url: "https://www.christiedigital.com/products/christie-pandoras-box/", desc: "Christie Pandoras Box", icon: "https://www.christiedigital.com/apple-touch-icon.png" },
-        { name: "MadMapper", url: "https://madmapper.com/madmapper/software", desc: "MadMapper", icon: "https://madmapper.com/images/favicon/apple-touch-icon.png" }
-
-      ]
-    },
-    {
-      title: "Coze",
-      links: [
-        { name: "命名专家", url: "https://www.coze.com/store/agent/7530562770308956161?bot_id=true", desc: "Naming Assistant命名专家", icon: "/img/coze.png" },
-        { name: "中译英", url: "https://www.coze.com/store/agent/7530572378075152440?bot_id=true", desc: "Chinese to English", icon: "/img/coze.png" },
-        { name: "英译中", url: "https://www.coze.com/store/agent/7530572202144694273?bot_id=true", desc: "English to Chinese", icon: "/img/coze.png" }
-      ]
-    },
-    {
-      title: "扣子",
-      links: [
-        { name: "命名专家", url: "https://www.coze.cn/store/agent/7530571775823577130?bot_id=true", desc: "Naming Assistant命名专家", icon: "/img/coze.png" },
-        { name: "中译英", url: "https://www.coze.cn/store/agent/7530581452909035572?bot_id=true", desc: "中译英翻译专家", icon: "/img/coze.png" },
-        { name: "英译中", url: "https://www.coze.cn/store/agent/7530581958234193970?bot_id=true", desc: "英译中翻译专家", icon: "/img/coze.png" }
       ]
     },
     {
@@ -67,57 +33,53 @@ export default function Home() {
       ]
     },
     {
-      title: "社交媒体",
-      links: [
-        { name: "Twitter", url: "https://twitter.com", desc: "社交媒体平台", icon: "https://twitter.com/favicon.ico" },
-        { name: "LinkedIn", url: "https://www.linkedin.com", desc: "职业社交网络", icon: "https://www.linkedin.com/favicon.ico" },
-        { name: "Reddit", url: "https://www.reddit.com", desc: "社区讨论平台", icon: "https://www.reddit.com/favicon.ico" }
-      ]
-    },
-    {
       title: "开发工具",
       links: [
         { name: "GitHub", url: "https://github.com", desc: "代码托管平台", icon: "https://github.com/favicon.ico" },
         { name: "Stack Overflow", url: "https://stackoverflow.com", desc: "程序员问答社区", icon: "https://stackoverflow.com/favicon.ico" },
         { name: "MDN", url: "https://developer.mozilla.org", desc: "Web开发文档", icon: "https://developer.mozilla.org/favicon.ico" },
+        { name: "CodePen", url: "https://codepen.io", desc: "在线代码编辑器", icon: "https://codepen.io/favicon.ico" }
+      ]
+    },
+    {
+      title: "社交媒体",
+      links: [
+        { name: "Twitter", url: "https://twitter.com", desc: "微博客社交网络", icon: "" },
+        { name: "LinkedIn", url: "https://www.linkedin.com", desc: "职业社交网络", icon: "" },
+        { name: "Reddit", url: "https://www.reddit.com", desc: "社区讨论平台", icon: "" },
+        { name: "Discord", url: "https://discord.com", desc: "语音聊天平台", icon: "" }
+      ]
+    },
+    {
+      title: "学习资源",
+      links: [
+        { name: "Coursera", url: "https://www.coursera.org", desc: "在线课程平台", icon: "" },
+        { name: "Khan Academy", url: "https://www.khanacademy.org", desc: "免费教育资源", icon: "" },
+        { name: "YouTube", url: "https://www.youtube.com", desc: "视频分享平台", icon: "" },
+        { name: "Medium", url: "https://medium.com", desc: "知识分享平台", icon: "" }
       ]
     }
-    
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--text-primary)' }}>
+    <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-10">
+      <header className="border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-3 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">WorkNav</h1>
-            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>工作网址导航</p>
+            <h1 className="text-4xl font-bold mb-3 tracking-tight">WorkNav</h1>
+            <p className="text-lg text-gray-600 dark:text-gray-400">工作网址导航</p>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
        <main className="max-w-7xl mx-auto px-6 py-12">
-         <div className="space-y-10">
+         <div className="space-y-8">
            {categories.map((category, index) => (
-             <div 
-               key={index} 
-               style={{ 
-                 background: 'var(--card-bg)', 
-                 borderColor: 'var(--card-border)' 
-               }} 
-               className="rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg"
-             >
-               <h2 
-                 className="text-xl font-semibold mb-6 relative inline-block"
-                 style={{ color: 'var(--text-primary)' }}
-               >
-                 <span className="relative z-10">{category.title}</span>
-                 <span 
-                  className="absolute bottom-0 left-0 w-full h-0.5 rounded-full opacity-30"
-                  style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
-                ></span>
+             <div key={index} className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6 hover:shadow-lg transition-shadow duration-300">
+               <h2 className="text-xl font-semibold mb-6 text-gray-900 dark:text-gray-100">
+                 {category.title}
                </h2>
                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                  {category.links.map((link, linkIndex) => (
@@ -126,13 +88,8 @@ export default function Home() {
                      href={link.url}
                      target="_blank"
                      rel="noopener noreferrer"
-                     style={{ 
-                       borderColor: 'var(--card-border)',
-                       background: 'var(--card-bg)'
-                     }}
-                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
+                     className="block p-4 rounded-xl border border-gray-100 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200 group"
                    >
-
                      <div className="flex items-center justify-between">
                        <div className="flex items-center flex-1">
                          <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
@@ -143,34 +100,24 @@ export default function Home() {
                                className="w-6 h-6 object-contain"
                              />
                            ) : (
-                             <div 
-                               style={{ background: 'var(--card-hover)' }}
-                               className="w-6 h-6 rounded-md flex items-center justify-center"
-                             >
-                               <span style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
+                             <div className="w-6 h-6 bg-gray-200 dark:bg-gray-700 rounded-md flex items-center justify-center">
+                               <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                                  {link.name.charAt(0).toUpperCase()}
                                </span>
                              </div>
                            )}
                          </div>
                          <div className="flex-1">
-                           <h3 
-                             style={{ color: 'var(--text-primary)' }}
-                             className="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                           >
+                           <h3 className="font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                              {link.name}
                            </h3>
-                           <p 
-                             style={{ color: 'var(--text-secondary)' }}
-                             className="text-sm mt-1"
-                           >
+                           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                              {link.desc}
                            </p>
                          </div>
                        </div>
                        <svg
-                         className="w-4 h-4 transition-colors ml-3 flex-shrink-0 group-hover:translate-x-1"
-                         style={{ color: 'var(--text-tertiary)' }}
+                         className="w-4 h-4 text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors ml-3 flex-shrink-0"
                          fill="none"
                          stroke="currentColor"
                          viewBox="0 0 24 24"
@@ -192,14 +139,10 @@ export default function Home() {
        </main>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--card-border)', background: 'var(--footer-bg)' }} className="mt-16">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="text-center">
-            <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2024 WorkNav. Cathy的工作导航站
-              <span className="inline-block mx-2 opacity-50">•</span>
-              <span className="opacity-70">极简风格</span>
-            </p>
+      <footer className="border-t border-gray-200 dark:border-gray-800 mt-16">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-center text-gray-500 dark:text-gray-400">
+            <p>© 2024 WorkNav. Cathy的工作导航站</p>
           </div>
         </div>
       </footer>

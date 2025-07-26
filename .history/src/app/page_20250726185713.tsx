@@ -1,5 +1,4 @@
 export default function Home() {
-  // 定义导航分类和链接
   const categories = [
     {
       title: "常用",
@@ -86,103 +85,75 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--text-primary)' }}>
+    <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-10">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-3 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">WorkNav</h1>
-            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>工作网址导航</p>
+            <h1 className="text-5xl font-bold mb-4 tracking-tight bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">WorkNav</h1>
+            <p className="text-xl text-muted max-w-2xl mx-auto">精选网站导航，提升工作效率</p>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-       <main className="max-w-7xl mx-auto px-6 py-12">
-         <div className="space-y-10">
-           {categories.map((category, index) => (
-             <div 
-               key={index} 
-               style={{ 
-                 background: 'var(--card-bg)', 
-                 borderColor: 'var(--card-border)' 
-               }} 
-               className="rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg"
-             >
-               <h2 
-                 className="text-xl font-semibold mb-6 relative inline-block"
-                 style={{ color: 'var(--text-primary)' }}
-               >
-                 <span className="relative z-10">{category.title}</span>
-                 <span 
-                  className="absolute bottom-0 left-0 w-full h-0.5 rounded-full opacity-30"
-                  style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
-                ></span>
-               </h2>
-               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                 {category.links.map((link, linkIndex) => (
-                   <a
-                     key={linkIndex}
-                     href={link.url}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     style={{ 
-                       borderColor: 'var(--card-border)',
-                       background: 'var(--card-bg)'
-                     }}
-                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
-                   >
-
+        <main className="max-w-7xl mx-auto px-6 py-16">
+          <div className="space-y-10">
+            {categories.map((category, index) => (
+              <div key={index} className="bg-card rounded-3xl border border-border p-8 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:border-primary/20">
+                <h2 className="text-2xl font-bold mb-8 text-foreground flex items-center gap-3">
+                  <div className="w-1 h-8 bg-gradient-to-b from-primary to-accent rounded-full"></div>
+                  {category.title}
+                </h2>
+               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {category.links.map((link, linkIndex) => (
+                    <a
+                      key={linkIndex}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block p-5 rounded-2xl border border-border hover:border-primary/30 hover:bg-card-hover transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1"
+                    >
                      <div className="flex items-center justify-between">
-                       <div className="flex items-center flex-1">
-                         <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
-                           {link.icon ? (
-                             <img 
-                               src={link.icon} 
-                               alt={`${link.name} icon`}
-                               className="w-6 h-6 object-contain"
-                             />
-                           ) : (
-                             <div 
-                               style={{ background: 'var(--card-hover)' }}
-                               className="w-6 h-6 rounded-md flex items-center justify-center"
-                             >
-                               <span style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
-                                 {link.name.charAt(0).toUpperCase()}
-                               </span>
-                             </div>
-                           )}
-                         </div>
-                         <div className="flex-1">
-                           <h3 
-                             style={{ color: 'var(--text-primary)' }}
-                             className="font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                           >
-                             {link.name}
-                           </h3>
-                           <p 
-                             style={{ color: 'var(--text-secondary)' }}
-                             className="text-sm mt-1"
-                           >
-                             {link.desc}
-                           </p>
-                         </div>
-                       </div>
-                       <svg
-                         className="w-4 h-4 transition-colors ml-3 flex-shrink-0 group-hover:translate-x-1"
-                         style={{ color: 'var(--text-tertiary)' }}
-                         fill="none"
-                         stroke="currentColor"
-                         viewBox="0 0 24 24"
-                       >
-                         <path
-                           strokeLinecap="round"
-                           strokeLinejoin="round"
-                           strokeWidth={2}
-                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                         />
-                       </svg>
-                     </div>
+                        <div className="flex items-center flex-1">
+                          <div className="w-10 h-10 mr-4 flex-shrink-0 flex items-center justify-center">
+                            {link.icon ? (
+                              <img 
+                                src={link.icon} 
+                                alt={`${link.name} icon`}
+                                className="w-7 h-7 object-contain"
+                              />
+                            ) : (
+                              <div className="w-7 h-7 bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-xl flex items-center justify-center">
+                                <span className="text-sm text-primary font-semibold">
+                                  {link.name.charAt(0).toUpperCase()}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base">
+                              {link.name}
+                            </h3>
+                            <p className="text-sm text-muted mt-1 leading-relaxed">
+                              {link.desc}
+                            </p>
+                          </div>
+                        </div>
+                        <svg
+                          className="w-5 h-5 text-muted group-hover:text-primary transition-all duration-300 ml-3 flex-shrink-0 group-hover:translate-x-1"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      </div>
                    </a>
                  ))}
                </div>
@@ -192,17 +163,19 @@ export default function Home() {
        </main>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--card-border)', background: 'var(--footer-bg)' }} className="mt-16">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="text-center">
-            <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2024 WorkNav. Cathy的工作导航站
-              <span className="inline-block mx-2 opacity-50">•</span>
-              <span className="opacity-70">极简风格</span>
-            </p>
-          </div>
-        </div>
-      </footer>
+       <footer className="border-t border-border bg-card/30 backdrop-blur-sm mt-20">
+         <div className="max-w-7xl mx-auto px-6 py-12">
+           <div className="text-center">
+             <div className="mb-4">
+               <h3 className="text-lg font-semibold text-foreground mb-2">WorkNav</h3>
+               <p className="text-muted text-sm max-w-md mx-auto">让工作更高效的精选导航站</p>
+             </div>
+             <div className="text-xs text-muted/80">
+               <p>© 2024 WorkNav. Built with ❤️ for productivity</p>
+             </div>
+           </div>
+         </div>
+       </footer>
     </div>
   );
 }

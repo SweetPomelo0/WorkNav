@@ -115,9 +115,9 @@ export default function Home() {
                >
                  <span className="relative z-10">{category.title}</span>
                  <span 
-                  className="absolute bottom-0 left-0 w-full h-0.5 rounded-full opacity-30"
-                  style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
-                ></span>
+                   className="absolute bottom-0 left-0 w-full h-1 rounded-full opacity-30"
+                   style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
+                 ></span>
                </h2>
                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                  {category.links.map((link, linkIndex) => (
@@ -130,10 +130,15 @@ export default function Home() {
                        borderColor: 'var(--card-border)',
                        background: 'var(--card-bg)'
                      }}
-                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
+                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative overflow-hidden"
                    >
-
-                     <div className="flex items-center justify-between">
+                     {/* 背景装饰元素 */}
+                     <div 
+                       className="absolute -right-12 -bottom-12 w-24 h-24 rounded-full opacity-5 transition-transform duration-300 group-hover:scale-150"
+                       style={{ background: 'var(--accent)' }}
+                     ></div>
+                     
+                     <div className="flex items-center justify-between relative z-10">
                        <div className="flex items-center flex-1">
                          <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
                            {link.icon ? (
@@ -192,14 +197,10 @@ export default function Home() {
        </main>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--card-border)', background: 'var(--footer-bg)' }} className="mt-16">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <div className="text-center">
-            <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2024 WorkNav. Cathy的工作导航站
-              <span className="inline-block mx-2 opacity-50">•</span>
-              <span className="opacity-70">极简风格</span>
-            </p>
+      <footer className="border-t border-gray-200 dark:border-gray-800 mt-16">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-center text-gray-500 dark:text-gray-400">
+            <p>© 2024 WorkNav. Cathy的工作导航站</p>
           </div>
         </div>
       </footer>

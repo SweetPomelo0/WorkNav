@@ -130,10 +130,15 @@ export default function Home() {
                        borderColor: 'var(--card-border)',
                        background: 'var(--card-bg)'
                      }}
-                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
+                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative overflow-hidden"
                    >
-
-                     <div className="flex items-center justify-between">
+                     {/* 背景装饰元素 */}
+                     <div 
+                       className="absolute -right-8 -bottom-8 w-16 h-16 rounded-full opacity-5 transition-transform duration-300 group-hover:scale-150"
+                       style={{ background: 'var(--accent)' }}
+                     ></div>
+                     
+                     <div className="flex items-center justify-between relative z-10">
                        <div className="flex items-center flex-1">
                          <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
                            {link.icon ? (

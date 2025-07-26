@@ -130,10 +130,10 @@ export default function Home() {
                        borderColor: 'var(--card-border)',
                        background: 'var(--card-bg)'
                      }}
-                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
+                     className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative overflow-hidden"
                    >
 
-                     <div className="flex items-center justify-between">
+                     <div className="flex items-center justify-between relative z-10">
                        <div className="flex items-center flex-1">
                          <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
                            {link.icon ? (
