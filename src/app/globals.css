@@ -24,8 +24,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-
-
 /* 手动暗黑模式切换 */
 .dark {
   --background: #121212;

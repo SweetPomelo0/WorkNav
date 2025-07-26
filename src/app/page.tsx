@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
+import pinyin from 'tiny-pinyin';
 
 export default function Home() {
   // 定义状态来跟踪当前选中的分类
@@ -49,6 +50,16 @@ export default function Home() {
     setIsDarkMode(newDarkMode);
     document.documentElement.classList.toggle('dark', newDarkMode);
   };
+  
+  // 将文本转换为拼音（用于搜索匹配）
+  const toPinyin = (text: string): string => {
+    if (!text) return '';
+    // 检查环境是否支持拼音转换
+    if (pinyin.isSupported()) {
+      return pinyin.convertToPinyin(text, '', true); // 转换为小写拼音
+    }
+    return text.toLowerCase(); // 降级处理
+  };
 
   // 回到顶部
   const scrollToTop = () => {
@@ -76,11 +87,16 @@ export default function Home() {
         { name: "ChatGPT", url: "https://chatgpt.com/", desc: "AI问答 翻译 写作", icon: "https://cdn.oaistatic.com/assets/favicon-180x180-od45eci6.webp" },
         { name: "Gemini", url: "https://gemini.google.com/app", desc: "AI问答 搜索 翻译", icon: "https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png" },
         { name: "Claude", url: "https://claude.ai/", desc: "生成 优化 解释代码", icon: "https://claude.ai/favicon.ico" },
+        { name: "Perplexity", url: "https://www.perplexity.ai/", desc: "AI搜索 问答", icon: "/img/perplexity.png" },
         { name: "Kimi", url: "https://www.kimi.com/", desc: "国产AI大模型", icon: "https://www.kimi.com/favicon.ico" },
+        { name: "Deepseek", url: "https://chat.deepseek.com/", desc: "AI问答 深度思考", icon: "https://cdn.deepseek.com/chat/icon.png" },
+        { name: "飞书妙记", url: "https://enlightv.feishu.cn/minutes/me", desc: "会议纪要 语音转文字", icon: "/img/miaoji.png" },
         { name: "沉浸式翻译", url: "https://immersivetranslate.com/zh-Hans/?utm_source=ai-bot.cn", desc: "中英对照的网页翻译插件", icon: "https://immersivetranslate.com/favicon.ico" },
         { name: "Midjourney", url: "https://www.midjourney.com/explore?tab=video_top", desc: "AI驱动的图像生成工具", icon: "/img/mj.png" },
         { name: "即梦", url: "https://jimeng.jianying.com/ai-tool/home", desc: "AI图片/视频生成", icon: "/img/jimeng.png" },
-        { name: "Perplexity", url: "https://www.perplexity.ai/", desc: "AI搜索 问答", icon: "/img/perplexity.png" }
+        { name: "Cherry Studio", url: "https://www.cherry-ai.com/", desc: "Cherry Studio", icon: "https://www.cherry-ai.com/assets/favicon-BmbgeFTf.png" },
+        { name: "Product Hunt", url: "https://www.producthunt.com/", desc: "Product Hunt", icon: "https://www.producthunt.com/favicon.ico" },
+        
 
       ]
     },
@@ -97,8 +113,9 @@ export default function Home() {
         { name: "Christie Pandoras Box", url: "https://www.christiedigital.com/products/christie-pandoras-box/", desc: "Christie Pandoras Box", icon: "https://www.christiedigital.com/apple-touch-icon.png" },
         { name: "MadMapper", url: "https://madmapper.com/madmapper/software", desc: "MadMapper", icon: "https://madmapper.com/images/favicon/apple-touch-icon.png" },
         { name: "Kystar", url: "https://www.kystar.com.cn/#indSection1", desc: "凯视达", icon: "/img/ksd.png" },
-        { name: "Novastar", url: "https://novastar-led.cn/index/products/index/id/124.html", desc: "Novastar诺瓦", icon: "https://novastar-led.cn/static/img/favicon.ico" }
-
+        { name: "Novastar", url: "https://novastar-led.cn/index/products/index/id/124.html", desc: "Novastar诺瓦", icon: "https://novastar-led.cn/static/img/favicon.ico" },
+        { name: "Lightform", url: "https://lightform.com/", desc: "Lightform", icon: "https://lightform.com/wp-content/uploads/2019/07/cropped-LF-Symbol-Black@2000px-180x180.png" },
+        { name: "TouchDesigner", url: "https://derivative.ca/", desc: "TouchDesigner", icon: "https://derivative.ca/sites/all/themes/derivative2017/favicon.ico" }
       ]
     },
     {
@@ -140,6 +157,7 @@ export default function Home() {
         { name: "GitHub", url: "https://github.com", desc: "代码托管平台", icon: "https://github.com/favicon.ico" },
         { name: "Stack Overflow", url: "https://stackoverflow.com", desc: "程序员问答社区", icon: "https://stackoverflow.com/favicon.ico" },
         { name: "MDN", url: "https://developer.mozilla.org", desc: "Web开发文档", icon: "https://developer.mozilla.org/favicon.ico" },
+        { name: "Qt", url: "https://doc.qt.io/", desc: "Qt开发文档", icon: "/img/QT.png" }
       ]
     }
     
@@ -390,11 +408,22 @@ export default function Home() {
              .filter(category => selectedCategory === "全部" || category.title === selectedCategory)
              .map((category, index) => {
                // 如果有搜索词，过滤链接
+               const searchTermLower = searchTerm.trim().toLowerCase();
                const filteredLinks = searchTerm.trim() 
-                 ? category.links.filter(link => 
-                     link.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                     link.desc.toLowerCase().includes(searchTerm.toLowerCase())
-                   )
+                 ? category.links.filter(link => {
+                     // 原有的文本匹配
+                     const nameMatch = link.name.toLowerCase().includes(searchTermLower);
+                     const descMatch = link.desc.toLowerCase().includes(searchTermLower);
+                     const urlMatch = link.url.toLowerCase().includes(searchTermLower);
+                     
+                     // 拼音匹配
+                     const namePinyin = toPinyin(link.name);
+                     const descPinyin = toPinyin(link.desc);
+                     const namePinyinMatch = namePinyin.includes(searchTermLower);
+                     const descPinyinMatch = descPinyin.includes(searchTermLower);
+                     
+                     return nameMatch || descMatch || urlMatch || namePinyinMatch || descPinyinMatch;
+                   })
                  : category.links;
                
                // 如果搜索后没有匹配的链接，不显示该分类
