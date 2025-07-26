@@ -132,7 +132,6 @@ export default function Home() {
       ]
     }
     
-    
   ];
 
   return (
@@ -147,7 +146,7 @@ export default function Home() {
       </header>
 
       {/* Category Navigation */}
-      <div className="mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
+      <div className="sticky top-0 z-10 mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-3 overflow-x-auto">
           <div className="flex items-center">
             <div className="flex-shrink-0 mr-3 md:mr-4">
@@ -480,58 +479,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2025 WorkNav. Cathy的工作导航站
+              © 2024 WorkNav. Cathy的工作导航站
               <span className="inline-block mx-2 opacity-50">•</span>
               <span className="opacity-70">极简风格</span>
             </p>
           </div>
         </div>
       </footer>
-
-      {/* 固定按钮组 */}
-      <div className="fixed bottom-6 right-6 flex flex-col space-y-3 z-50">
-        {/* 暗黑模式切换按钮 */}
-        <button
-          onClick={toggleDarkMode}
-          className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-          style={{
-            background: 'var(--card-bg)',
-            borderColor: 'var(--card-border)',
-            color: 'var(--text-primary)'
-          }}
-          title={isDarkMode ? '切换到亮色模式' : '切换到暗黑模式'}
-        >
-          {isDarkMode ? (
-            // 太阳图标 (亮色模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          ) : (
-            // 月亮图标 (暗黑模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          )}
-        </button>
-
-        {/* 回到顶部按钮 */}
-        {showBackToTop && (
-          <button
-            onClick={scrollToTop}
-            className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-            style={{
-              background: 'var(--card-bg)',
-              borderColor: 'var(--card-border)',
-              color: 'var(--text-primary)'
-            }}
-            title="回到顶部"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </button>
-        )}
-      </div>
     </div>
   );
 }

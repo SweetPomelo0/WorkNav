@@ -43,24 +43,6 @@
   }
 }
 
-/* 手动暗黑模式切换 */
-.dark {
-  --background: #121212;
-  --background-rgb: 18, 18, 18;
-  --foreground: #f8f9fa;
-  --card-bg: #1e1e1e;
-  --card-border: #2d2d2d;
-  --card-hover: #2a2a2a;
-  --accent: #4361ee;
-  --accent-hover: #5a72f0;
-  --text-primary: #f8f9fa;
-  --text-secondary: #adb5bd;
-  --text-tertiary: #6c757d;
-  --header-bg: #1a1a1a;
-  --header-bg-rgb: 26, 26, 26;
-  --footer-bg: #1a1a1a;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -107,63 +89,4 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
-}
-
-/* 分类导航专用滚动条样式 */
-.category-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--card-border) transparent;
-}
-
-.category-scrollbar::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-.category-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 2px;
-}
-
-.category-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--card-border);
-  border-radius: 2px;
-  transition: background-color 0.2s ease;
-}
-
-.category-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
-}
-
-/* 隐藏滚动条但保持滚动功能 */
-.category-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.category-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* 在hover时显示滚动条 */
-.category-nav-container:hover .category-scrollbar::-webkit-scrollbar {
-  display: block;
-  width: 4px;
-  height: 4px;
-}
-
-.category-nav-container:hover .category-scrollbar::-webkit-scrollbar-track {
-  background: rgba(var(--background-rgb), 0.5);
-  border-radius: 2px;
-}
-
-.category-nav-container:hover .category-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--card-border);
-  border-radius: 2px;
-  transition: background-color 0.2s ease;
-}
-
-.category-nav-container:hover
-  .category-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
 }

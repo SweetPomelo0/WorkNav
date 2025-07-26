@@ -147,7 +147,7 @@ export default function Home() {
       </header>
 
       {/* Category Navigation */}
-      <div className="mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
+      <div className="sticky top-0 z-10 mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-3 overflow-x-auto">
           <div className="flex items-center">
             <div className="flex-shrink-0 mr-3 md:mr-4">
@@ -480,7 +480,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2025 WorkNav. Cathy的工作导航站
+              © 2024 WorkNav. Cathy的工作导航站
               <span className="inline-block mx-2 opacity-50">•</span>
               <span className="opacity-70">极简风格</span>
             </p>

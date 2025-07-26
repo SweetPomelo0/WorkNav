@@ -131,7 +131,42 @@ export default function Home() {
         { name: "MDN", url: "https://developer.mozilla.org", desc: "Web开发文档", icon: "https://developer.mozilla.org/favicon.ico" },
       ]
     }
-    
+    {
+      title: "工作平台",
+      links: [
+        { name: "JIRA", url: "https://jira.enlightent.com/secure/Dashboard.jspa", desc: "项目管理和问题跟踪", icon: "https://jira.enlightent.com/favicon.ico" },
+        { name: "Confluence", url: "https://confluence.enlightent.com/", desc: "团队协作和文档管理", icon: "https://confluence.enlightent.com/favicon.ico" },
+        { name: "GitLab", url: "https://gitlab.enlightent.com/", desc: "代码仓库和版本控制", icon: "https://gitlab.enlightent.com/favicon.ico" },
+        { name: "Jenkins", url: "https://jenkins.enlightent.com/", desc: "持续集成和部署", icon: "https://jenkins.enlightent.com/favicon.ico" }
+      ]
+    },
+    {
+      title: "设计资源",
+      links: [
+        { name: "Figma", url: "https://www.figma.com/", desc: "在线协作设计工具", icon: "https://www.figma.com/favicon.ico" },
+        { name: "Dribbble", url: "https://dribbble.com/", desc: "设计灵感和案例", icon: "https://dribbble.com/favicon.ico" },
+        { name: "Behance", url: "https://www.behance.net/", desc: "创意作品展示平台", icon: "https://www.behance.net/favicon.ico" },
+        { name: "UI8", url: "https://ui8.net/", desc: "UI设计资源", icon: "https://ui8.net/favicon.ico" }
+      ]
+    },
+    {
+      title: "文档资源",
+      links: [
+        { name: "语雀", url: "https://www.yuque.com/", desc: "在线文档协作平台", icon: "https://www.yuque.com/favicon.ico" },
+        { name: "石墨文档", url: "https://shimo.im/", desc: "在线协作文档", icon: "https://shimo.im/favicon.ico" },
+        { name: "腾讯文档", url: "https://docs.qq.com/", desc: "在线办公文档", icon: "https://docs.qq.com/favicon.ico" },
+        { name: "金山文档", url: "https://www.kdocs.cn/", desc: "在线文档协作", icon: "https://www.kdocs.cn/favicon.ico" }
+      ]
+    },
+    {
+      title: "开发工具",
+      links: [
+        { name: "VS Code", url: "https://code.visualstudio.com/", desc: "代码编辑器", icon: "https://code.visualstudio.com/favicon.ico" },
+        { name: "Postman", url: "https://www.postman.com/", desc: "API开发和测试", icon: "https://www.postman.com/favicon.ico" },
+        { name: "Docker Hub", url: "https://hub.docker.com/", desc: "容器镜像仓库", icon: "https://hub.docker.com/favicon.ico" },
+        { name: "npm", url: "https://www.npmjs.com/", desc: "Node.js包管理器", icon: "https://www.npmjs.com/favicon.ico" }
+      ]
+    }
     
   ];
 
@@ -147,7 +182,7 @@ export default function Home() {
       </header>
 
       {/* Category Navigation */}
-      <div className="mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
+      <div className="sticky top-0 z-10 mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-3 overflow-x-auto">
           <div className="flex items-center">
             <div className="flex-shrink-0 mr-3 md:mr-4">
@@ -480,7 +515,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2025 WorkNav. Cathy的工作导航站
+              © 2024 WorkNav. Cathy的工作导航站
               <span className="inline-block mx-2 opacity-50">•</span>
               <span className="opacity-70">极简风格</span>
             </p>

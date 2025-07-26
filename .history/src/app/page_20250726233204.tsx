@@ -131,7 +131,19 @@ export default function Home() {
         { name: "MDN", url: "https://developer.mozilla.org", desc: "Web开发文档", icon: "https://developer.mozilla.org/favicon.ico" },
       ]
     }
-    
+    {
+      title: "常用网站",
+      links: [
+        { name: "百度", url: "https://www.baidu.com", desc: "中文搜索引擎", icon: "https://www.baidu.com/favicon.ico" },
+        { name: "Google", url: "https://www.google.com", desc: "全球搜索引擎", icon: "https://www.google.com/favicon.ico" },
+        { name: "Bing", url: "https://www.bing.com", desc: "微软搜索引擎", icon: "https://www.bing.com/favicon.ico" },
+        { name: "知乎", url: "https://www.zhihu.com", desc: "中文问答社区", icon: "https://static.zhihu.com/heifetz/favicon.ico" },
+        { name: "微博", url: "https://weibo.com", desc: "中文社交媒体", icon: "https://weibo.com/favicon.ico" },
+        { name: "淘宝", url: "https://www.taobao.com", desc: "购物网站", icon: "https://www.taobao.com/favicon.ico" },
+        { name: "京东", url: "https://www.jd.com", desc: "购物网站", icon: "https://www.jd.com/favicon.ico" },
+        { name: "哔哩哔哩", url: "https://www.bilibili.com", desc: "视频网站", icon: "https://www.bilibili.com/favicon.ico" }
+      ]
+    },
     
   ];
 
@@ -147,7 +159,7 @@ export default function Home() {
       </header>
 
       {/* Category Navigation */}
-      <div className="mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
+      <div className="sticky top-0 z-10 mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-3 overflow-x-auto">
           <div className="flex items-center">
             <div className="flex-shrink-0 mr-3 md:mr-4">
@@ -480,7 +492,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2025 WorkNav. Cathy的工作导航站
+              © 2024 WorkNav. Cathy的工作导航站
               <span className="inline-block mx-2 opacity-50">•</span>
               <span className="opacity-70">极简风格</span>
             </p>

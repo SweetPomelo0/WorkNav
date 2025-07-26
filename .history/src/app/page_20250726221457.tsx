@@ -1,51 +1,56 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Home() {
   // 定义状态来跟踪当前选中的分类
   const [selectedCategory, setSelectedCategory] = useState("全部");
   // 定义状态来跟踪是否是初始加载状态
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  // 定义搜索状态
+  // 定义状态来跟踪移动端搜索框是否显示
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+  // 定义状态来跟踪搜索关键词
   const [searchTerm, setSearchTerm] = useState("");
-  // 定义移动端搜索框展开状态
-  const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
-  // 定义暗黑模式状态
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  // 定义显示回到顶部按钮的状态
-  const [showBackToTop, setShowBackToTop] = useState(false);
-
-  // 初始化暗黑模式
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDarkMode(shouldUseDark);
-    document.documentElement.classList.toggle('dark', shouldUseDark);
-  }, []);
-
-  // 监听滚动事件显示/隐藏回到顶部按钮
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // 切换暗黑模式
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    document.documentElement.classList.toggle('dark', newDarkMode);
-    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
+  // 定义状态来跟踪搜索框是否聚焦
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  // 定义状态来跟踪搜索结果
+  const [searchResults, setSearchResults] = useState([]);
+  // 定义状态来跟踪是否显示搜索结果
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  
+  // 处理搜索功能
+  const handleSearch = (e) => {
+    if (e.key === 'Enter') {
+      if (searchTerm.trim() === "") {
+        setShowSearchResults(false);
+        return;
+      }
+      
+      // 搜索逻辑：从所有分类中查找匹配的链接
+      const results = [];
+      categories.forEach(category => {
+        const matchedLinks = category.links.filter(link => 
+          link.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          link.desc.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        
+        if (matchedLinks.length > 0) {
+          results.push({
+            category: category.title,
+            links: matchedLinks
+          });
+        }
+      });
+      
+      setSearchResults(results);
+      setShowSearchResults(true);
+      console.log("搜索结果:", results);
+    }
   };
-
-  // 回到顶部
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  // 清除搜索
+  const clearSearch = () => {
+    setSearchTerm("");
+    setShowSearchResults(false);
   };
   
   // 定义导航分类和链接
@@ -132,7 +137,6 @@ export default function Home() {
       ]
     }
     
-    
   ];
 
   return (
@@ -147,15 +151,20 @@ export default function Home() {
       </header>
 
       {/* Category Navigation */}
-      <div className="mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-3 overflow-x-auto">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 mr-3 md:mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--accent)' }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-              </svg>
-            </div>
-            <div className="flex space-x-1 md:space-x-2 overflow-x-auto category-scrollbar flex-grow">
+      <div className="sticky top-0 z-10 mt-3" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
+        <div className="max-w-7xl mx-auto px-6 py-3 overflow-x-auto">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center flex-grow">
+              <div className="flex-shrink-0 mr-4">
+                <div className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--accent)' }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                  <span className="text-sm font-medium" style={{ color: 'var(--text-primary)' }}>分类导航</span>
+                </div>
+              </div>
+              <div className="flex space-x-2 overflow-x-auto pb-1 scrollbar-thin flex-grow">
+
               <a 
                 href="#"
                 onClick={(e) => {
@@ -163,10 +172,11 @@ export default function Home() {
                   setSelectedCategory("全部");
                   setIsInitialLoad(false);
                 }}
-                className="text-xs font-medium whitespace-nowrap px-2 md:px-3 py-1 md:py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
+                className="text-xs font-medium whitespace-nowrap px-3 py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
                 style={{ 
                   background: (selectedCategory === "全部" && !isInitialLoad) ? 'var(--accent)' : 'var(--card-bg)',
                   border: '1px solid ' + ((selectedCategory === "全部" && !isInitialLoad) ? 'var(--accent)' : 'var(--card-border)'),
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                   color: (selectedCategory === "全部" && !isInitialLoad) ? 'white' : 'var(--text-primary)'
                 }}
               >
@@ -185,10 +195,11 @@ export default function Home() {
                       element.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="text-xs font-medium whitespace-nowrap px-2 md:px-3 py-1 md:py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
+                  className="text-xs font-medium whitespace-nowrap px-3 py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
                   style={{ 
                     background: selectedCategory === category.title ? 'var(--accent)' : 'var(--card-bg)',
                     border: '1px solid ' + (selectedCategory === category.title ? 'var(--accent)' : 'var(--card-border)'),
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
                     color: selectedCategory === category.title ? 'white' : 'var(--text-primary)'
                   }}
                 >
@@ -196,217 +207,239 @@ export default function Home() {
                 </a>
               ))}
             </div>
+            </div>
             
-            {/* Search Box */}
-            <div className="flex-shrink-0 ml-2 md:ml-4">
-              {/* 桌面端搜索框 */}
-              <div className="hidden md:block relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg 
-                    className="h-4 w-4" 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor"
-                    style={{ color: 'var(--text-secondary)' }}
-                  >
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
-                    />
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  placeholder="搜索..."
+            {/* 桌面端搜索框 */}
+            <div className="relative flex-shrink-0 ml-4 hidden sm:block">
+              <div className="relative">
+                <input 
+                  type="text" 
+                  placeholder="搜索网站..." 
                   value={searchTerm}
-                  onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                    // 如果有搜索内容，自动切换到"全部"分类
-                    if (e.target.value.trim()) {
-                      setSelectedCategory("全部");
-                      setIsInitialLoad(false);
-                    }
-                  }}
-                  className="w-64 pl-10 pr-4 text-xs rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
-                  style={{
-                    background: 'var(--card-bg)',
-                    borderColor: 'var(--card-border)',
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={handleSearch}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onBlur={() => setIsSearchFocused(false)}
+                  className="w-48 md:w-64 py-1.5 pl-9 pr-3 text-sm rounded-md transition-all duration-300 focus:ring-2 focus:ring-opacity-50 focus:outline-none" 
+                  style={{ 
+                    background: 'var(--card-bg)', 
+                    border: `1px solid ${isSearchFocused ? 'var(--accent)' : 'var(--card-border)'}`,
                     color: 'var(--text-primary)',
-                    height: '34px'
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = 'var(--accent)';
-                    e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = 'var(--card-border)';
-                    e.target.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                    boxShadow: isSearchFocused ? '0 0 0 2px rgba(var(--accent-rgb), 0.2)' : '0 1px 3px rgba(0,0,0,0.05)',
                   }}
                 />
-              </div>
-              
-              {/* 移动端搜索 */}
-              <div className="md:hidden relative">
-                {!isMobileSearchExpanded ? (
-                  // 搜索图标按钮
-                  <button
-                    onClick={() => setIsMobileSearchExpanded(true)}
-                    className="rounded-lg border transition-all duration-200 hover:shadow-md"
-                    style={{
-                      background: 'var(--card-bg)',
-                      borderColor: 'var(--card-border)',
-                      height: '34px',
-                      width: '34px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
+                <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--text-secondary)' }}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                {searchTerm && (
+                  <div 
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                    onClick={clearSearch}
                   >
-                    <svg 
-                      className="h-4 w-4" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={2} 
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
-                      />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--text-secondary)' }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                  </button>
-                ) : (
-                  // 展开的搜索框
-                  <div className="flex items-center space-x-2">
-                    <div className="relative flex-1">
-                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg 
-                          className="h-4 w-4" 
-                          fill="none" 
-                          viewBox="0 0 24 24" 
-                          stroke="currentColor"
-                          style={{ color: 'var(--text-secondary)' }}
-                        >
-                          <path 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" 
-                            strokeWidth={2} 
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
-                          />
-                        </svg>
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="搜索..."
-                        value={searchTerm}
-                        onChange={(e) => {
-                          setSearchTerm(e.target.value);
-                          // 如果有搜索内容，自动切换到"全部"分类
-                          if (e.target.value.trim()) {
-                            setSelectedCategory("全部");
-                            setIsInitialLoad(false);
-                          }
-                        }}
-                        className="w-36 sm:w-48 pl-10 pr-4 text-xs rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
-                        style={{
-                          background: 'var(--card-bg)',
-                          borderColor: 'var(--card-border)',
-                          color: 'var(--text-primary)',
-                          height: '34px'
-                        }}
-                        onFocus={(e) => {
-                          e.target.style.borderColor = 'var(--accent)';
-                          e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                        }}
-                        onBlur={(e) => {
-                          e.target.style.borderColor = 'var(--card-border)';
-                          e.target.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
-                        }}
-                        autoFocus
-                      />
-                    </div>
-                    {/* 关闭按钮 */}
-                    <button
-                      onClick={() => {
-                        setIsMobileSearchExpanded(false);
-                        setSearchTerm("");
-                      }}
-                      className="rounded-lg border transition-all duration-200 hover:shadow-md"
-                      style={{
-                        background: 'var(--card-bg)',
-                        borderColor: 'var(--card-border)',
-                        height: '34px',
-                        width: '34px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                      }}
-                    >
-                      <svg 
-                        className="h-4 w-4" 
-                        fill="none" 
-                        viewBox="0 0 24 24" 
-                        stroke="currentColor"
-                        style={{ color: 'var(--text-primary)' }}
-                      >
-                        <path 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round" 
-                          strokeWidth={2} 
-                          d="M6 18L18 6M6 6l12 12" 
-                        />
-                      </svg>
-                    </button>
                   </div>
                 )}
               </div>
             </div>
+            
+            {/* 移动端搜索按钮 */}
+            <div className="relative flex-shrink-0 ml-2 block sm:hidden">
+              <button 
+                onClick={() => setShowMobileSearch(!showMobileSearch)}
+                className="p-1.5 rounded-md transition-all duration-300 hover:bg-opacity-90"
+                style={{ 
+                  background: 'var(--card-bg)', 
+                  border: '1px solid var(--card-border)',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--text-secondary)' }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="border-b border-solid w-full mt-1" style={{ borderColor: 'var(--card-border)' }}></div>
-        </div>
+            {/* 移动端搜索框 */}
+            {showMobileSearch && (
+              <div className="py-2 block sm:hidden">
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    placeholder="搜索网站..." 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={handleSearch}
+                    onFocus={() => setIsSearchFocused(true)}
+                    onBlur={() => setIsSearchFocused(false)}
+                    className="w-full py-1.5 pl-9 pr-3 text-sm rounded-md transition-all duration-300 focus:ring-2 focus:ring-opacity-50 focus:outline-none" 
+                    style={{ 
+                      background: 'var(--card-bg)', 
+                      border: `1px solid ${isSearchFocused ? 'var(--accent)' : 'var(--card-border)'}`,
+                      color: 'var(--text-primary)',
+                      boxShadow: isSearchFocused ? '0 0 0 2px rgba(var(--accent-rgb), 0.2)' : '0 1px 3px rgba(0,0,0,0.05)',
+                    }}
+                    autoFocus
+                  />
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--text-secondary)' }}>
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  {searchTerm && (
+                    <div 
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                      onClick={clearSearch}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--text-secondary)' }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            <div className="border-b border-solid w-full mt-1" style={{ borderColor: 'var(--card-border)' }}></div>
+          </div>
       </div>
 
       {/* Main Content */}
        <main className="max-w-7xl mx-auto px-6 py-8">
-         <div className="space-y-10">
+         {/* 搜索结果显示区域 */}
+         {showSearchResults && (
+           <div className="space-y-6 mb-10">
+             <div className="flex items-center justify-between">
+               <h2 
+                 className="text-lg font-semibold relative inline-block"
+                 style={{ color: 'var(--text-primary)' }}
+               >
+                 <span className="relative z-10">搜索结果</span>
+                 <span 
+                  className="absolute bottom-0 left-0 w-full h-0.5 rounded-full opacity-30"
+                  style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
+                ></span>
+               </h2>
+               <button 
+                 onClick={clearSearch}
+                 className="text-xs px-3 py-1.5 rounded-md transition-all duration-300"
+                 style={{ 
+                   background: 'var(--card-bg)', 
+                   border: '1px solid var(--card-border)',
+                   color: 'var(--text-secondary)'
+                 }}
+               >
+                 清除搜索
+               </button>
+             </div>
+             
+             {searchResults.length === 0 ? (
+               <div 
+                 className="p-6 rounded-xl text-center"
+                 style={{ 
+                   background: 'var(--card-bg)', 
+                   border: '1px solid var(--card-border)',
+                   color: 'var(--text-secondary)'
+                 }}
+               >
+                 没有找到匹配 "{searchTerm}" 的结果
+               </div>
+             ) : (
+               <div className="space-y-8">
+                 {searchResults.map((result, resultIndex) => (
+                   <div 
+                     key={resultIndex} 
+                     style={{ 
+                       background: 'var(--card-bg)', 
+                       borderColor: 'var(--card-border)' 
+                     }} 
+                     className="rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg"
+                   >
+                     <h3 className="text-lg font-semibold mb-6 relative inline-block" style={{ color: 'var(--text-primary)' }}>
+                       <span className="relative z-10">{result.category}</span>
+                       <span 
+                        className="absolute bottom-0 left-0 w-full h-0.5 rounded-full opacity-30"
+                        style={{ background: 'var(--accent)', transform: 'translateY(6px)' }}
+                      ></span>
+                     </h3>
+                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                       {result.links.map((link, linkIndex) => (
+                         <a
+                           key={linkIndex}
+                           href={link.url}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           style={{ 
+                             borderColor: 'var(--card-border)',
+                             background: 'var(--card-bg)'
+                           }}
+                           className="block p-4 rounded-xl border hover:shadow-md transition-all duration-200 group relative"
+                         >
+                           <div className="flex items-center justify-between">
+                             <div className="flex items-center flex-1">
+                               <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
+                                 {link.icon ? (
+                                   <img 
+                                     src={link.icon} 
+                                     alt={`${link.name} icon`}
+                                     className="w-6 h-6 object-contain"
+                                   />
+                                 ) : (
+                                   <div 
+                                     style={{ background: 'var(--card-hover)' }}
+                                     className="w-6 h-6 rounded-md flex items-center justify-center"
+                                   >
+                                     <span style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
+                                       {link.name.charAt(0).toUpperCase()}
+                                     </span>
+                                   </div>
+                                 )}
+                               </div>
+                               <div className="flex-1">
+                                 <h3 
+                                   style={{ color: 'var(--text-primary)' }}
+                                   className="text-sm font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                                 >
+                                   {link.name}
+                                 </h3>
+                                 <p 
+                                   style={{ color: 'var(--text-secondary)' }}
+                                   className="text-sm mt-1"
+                                 >
+                                   {link.desc}
+                                 </p>
+                               </div>
+                             </div>
+                           </div>
+                         </a>
+                       ))}
+                     </div>
+                   </div>
+                 ))}
+               </div>
+             )}
+           </div>
+         )}
+         
+         {/* 主要内容区域 */}
+         <div className={`space-y-10 ${showSearchResults ? 'hidden' : ''}`}>
            {categories
              .filter(category => selectedCategory === "全部" || category.title === selectedCategory)
-             .map((category, index) => {
-               // 如果有搜索词，过滤链接
-               const filteredLinks = searchTerm.trim() 
-                 ? category.links.filter(link => 
-                     link.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                     link.desc.toLowerCase().includes(searchTerm.toLowerCase())
-                   )
-                 : category.links;
-               
-               // 如果搜索后没有匹配的链接，不显示该分类
-               if (searchTerm.trim() && filteredLinks.length === 0) {
-                 return null;
-               }
-               
-               return (
+             .map((category, index) => (
              <div 
                key={index}
                id={`category-${index}`} 
-               className="rounded-2xl border transition-all duration-300 hover:shadow-lg"
                style={{ 
                  background: 'var(--card-bg)', 
-                 borderColor: 'var(--card-border)',
-                 paddingTop: '16px',
-                 paddingBottom: '24px',
-                 paddingLeft: '24px',
-                 paddingRight: '24px'
-               }}
+                 borderColor: 'var(--card-border)' 
+               }} 
+               className="rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg"
              >
                <h2 
-                 className="text-base font-semibold mb-4 relative inline-block"
+                 className="text-lg font-semibold mb-6 relative inline-block"
                  style={{ color: 'var(--text-primary)' }}
                >
                  <span className="relative z-10">{category.title}</span>
@@ -416,7 +449,7 @@ export default function Home() {
                 ></span>
                </h2>
                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                 {filteredLinks.map((link, linkIndex) => (
+                 {category.links.map((link, linkIndex) => (
                    <a
                      key={linkIndex}
                      href={link.url}
@@ -469,9 +502,8 @@ export default function Home() {
                    </a>
                  ))}
                </div>
-               </div>
-               );
-             })}
+             </div>
+           ))}
          </div>
        </main>
 
@@ -480,58 +512,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2025 WorkNav. Cathy的工作导航站
+              © 2024 WorkNav. Cathy的工作导航站
               <span className="inline-block mx-2 opacity-50">•</span>
               <span className="opacity-70">极简风格</span>
             </p>
           </div>
         </div>
       </footer>
-
-      {/* 固定按钮组 */}
-      <div className="fixed bottom-6 right-6 flex flex-col space-y-3 z-50">
-        {/* 暗黑模式切换按钮 */}
-        <button
-          onClick={toggleDarkMode}
-          className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-          style={{
-            background: 'var(--card-bg)',
-            borderColor: 'var(--card-border)',
-            color: 'var(--text-primary)'
-          }}
-          title={isDarkMode ? '切换到亮色模式' : '切换到暗黑模式'}
-        >
-          {isDarkMode ? (
-            // 太阳图标 (亮色模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          ) : (
-            // 月亮图标 (暗黑模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          )}
-        </button>
-
-        {/* 回到顶部按钮 */}
-        {showBackToTop && (
-          <button
-            onClick={scrollToTop}
-            className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-            style={{
-              background: 'var(--card-bg)',
-              borderColor: 'var(--card-border)',
-              color: 'var(--text-primary)'
-            }}
-            title="回到顶部"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </button>
-        )}
-      </div>
     </div>
   );
 }

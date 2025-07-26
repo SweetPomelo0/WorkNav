@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Home() {
   // 定义状态来跟踪当前选中的分类
@@ -10,43 +10,6 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   // 定义移动端搜索框展开状态
   const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
-  // 定义暗黑模式状态
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  // 定义显示回到顶部按钮的状态
-  const [showBackToTop, setShowBackToTop] = useState(false);
-
-  // 初始化暗黑模式
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDarkMode(shouldUseDark);
-    document.documentElement.classList.toggle('dark', shouldUseDark);
-  }, []);
-
-  // 监听滚动事件显示/隐藏回到顶部按钮
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // 切换暗黑模式
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    document.documentElement.classList.toggle('dark', newDarkMode);
-    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
-  };
-
-  // 回到顶部
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
   
   // 定义导航分类和链接
   const categories = [
@@ -132,7 +95,6 @@ export default function Home() {
       ]
     }
     
-    
   ];
 
   return (
@@ -147,15 +109,18 @@ export default function Home() {
       </header>
 
       {/* Category Navigation */}
-      <div className="mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
+      <div className="sticky top-0 z-10 mt-3" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-3 overflow-x-auto">
           <div className="flex items-center">
-            <div className="flex-shrink-0 mr-3 md:mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--accent)' }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-              </svg>
+            <div className="flex-shrink-0 mr-2 md:mr-4">
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--accent)' }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+                <span className="hidden sm:inline text-sm font-medium" style={{ color: 'var(--text-primary)' }}>分类</span>
+              </div>
             </div>
-            <div className="flex space-x-1 md:space-x-2 overflow-x-auto category-scrollbar flex-grow">
+            <div className="flex space-x-2 overflow-x-auto pb-1 scrollbar-thin flex-grow">
               <a 
                 href="#"
                 onClick={(e) => {
@@ -163,10 +128,11 @@ export default function Home() {
                   setSelectedCategory("全部");
                   setIsInitialLoad(false);
                 }}
-                className="text-xs font-medium whitespace-nowrap px-2 md:px-3 py-1 md:py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
+                className="text-xs font-medium whitespace-nowrap px-3 py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
                 style={{ 
                   background: (selectedCategory === "全部" && !isInitialLoad) ? 'var(--accent)' : 'var(--card-bg)',
                   border: '1px solid ' + ((selectedCategory === "全部" && !isInitialLoad) ? 'var(--accent)' : 'var(--card-border)'),
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                   color: (selectedCategory === "全部" && !isInitialLoad) ? 'white' : 'var(--text-primary)'
                 }}
               >
@@ -185,10 +151,11 @@ export default function Home() {
                       element.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
-                  className="text-xs font-medium whitespace-nowrap px-2 md:px-3 py-1 md:py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
+                  className="text-xs font-medium whitespace-nowrap px-3 py-1.5 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-opacity-90 flex-shrink-0"
                   style={{ 
                     background: selectedCategory === category.title ? 'var(--accent)' : 'var(--card-bg)',
                     border: '1px solid ' + (selectedCategory === category.title ? 'var(--accent)' : 'var(--card-border)'),
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
                     color: selectedCategory === category.title ? 'white' : 'var(--text-primary)'
                   }}
                 >
@@ -198,7 +165,7 @@ export default function Home() {
             </div>
             
             {/* Search Box */}
-            <div className="flex-shrink-0 ml-2 md:ml-4">
+            <div className="flex-shrink-0 ml-4">
               {/* 桌面端搜索框 */}
               <div className="hidden md:block relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -219,7 +186,7 @@ export default function Home() {
                 </div>
                 <input
                   type="text"
-                  placeholder="搜索..."
+                  placeholder="搜索网站..."
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
@@ -229,12 +196,12 @@ export default function Home() {
                       setIsInitialLoad(false);
                     }
                   }}
-                  className="w-64 pl-10 pr-4 text-xs rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+                  className="w-64 pl-10 pr-4 py-2 text-sm rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
                   style={{
                     background: 'var(--card-bg)',
                     borderColor: 'var(--card-border)',
                     color: 'var(--text-primary)',
-                    height: '34px'
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = 'var(--accent)';
@@ -253,15 +220,11 @@ export default function Home() {
                   // 搜索图标按钮
                   <button
                     onClick={() => setIsMobileSearchExpanded(true)}
-                    className="rounded-lg border transition-all duration-200 hover:shadow-md"
+                    className="p-2 rounded-lg border transition-all duration-200 hover:shadow-md"
                     style={{
                       background: 'var(--card-bg)',
                       borderColor: 'var(--card-border)',
-                      height: '34px',
-                      width: '34px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                     }}
                   >
                     <svg 
@@ -301,7 +264,7 @@ export default function Home() {
                       </div>
                       <input
                         type="text"
-                        placeholder="搜索..."
+                        placeholder="搜索网站..."
                         value={searchTerm}
                         onChange={(e) => {
                           setSearchTerm(e.target.value);
@@ -311,12 +274,12 @@ export default function Home() {
                             setIsInitialLoad(false);
                           }
                         }}
-                        className="w-36 sm:w-48 pl-10 pr-4 text-xs rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+                        className="w-48 pl-10 pr-4 py-2 text-sm rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
                         style={{
                           background: 'var(--card-bg)',
                           borderColor: 'var(--card-border)',
                           color: 'var(--text-primary)',
-                          height: '34px'
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                         }}
                         onFocus={(e) => {
                           e.target.style.borderColor = 'var(--accent)';
@@ -335,15 +298,11 @@ export default function Home() {
                         setIsMobileSearchExpanded(false);
                         setSearchTerm("");
                       }}
-                      className="rounded-lg border transition-all duration-200 hover:shadow-md"
+                      className="p-2 rounded-lg border transition-all duration-200 hover:shadow-md"
                       style={{
                         background: 'var(--card-bg)',
                         borderColor: 'var(--card-border)',
-                        height: '34px',
-                        width: '34px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                       }}
                     >
                       <svg 
@@ -395,18 +354,14 @@ export default function Home() {
              <div 
                key={index}
                id={`category-${index}`} 
-               className="rounded-2xl border transition-all duration-300 hover:shadow-lg"
                style={{ 
                  background: 'var(--card-bg)', 
-                 borderColor: 'var(--card-border)',
-                 paddingTop: '16px',
-                 paddingBottom: '24px',
-                 paddingLeft: '24px',
-                 paddingRight: '24px'
-               }}
+                 borderColor: 'var(--card-border)' 
+               }} 
+               className="rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg"
              >
                <h2 
-                 className="text-base font-semibold mb-4 relative inline-block"
+                 className="text-lg font-semibold mb-6 relative inline-block"
                  style={{ color: 'var(--text-primary)' }}
                >
                  <span className="relative z-10">{category.title}</span>
@@ -480,58 +435,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2025 WorkNav. Cathy的工作导航站
+              © 2024 WorkNav. Cathy的工作导航站
               <span className="inline-block mx-2 opacity-50">•</span>
               <span className="opacity-70">极简风格</span>
             </p>
           </div>
         </div>
       </footer>
-
-      {/* 固定按钮组 */}
-      <div className="fixed bottom-6 right-6 flex flex-col space-y-3 z-50">
-        {/* 暗黑模式切换按钮 */}
-        <button
-          onClick={toggleDarkMode}
-          className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-          style={{
-            background: 'var(--card-bg)',
-            borderColor: 'var(--card-border)',
-            color: 'var(--text-primary)'
-          }}
-          title={isDarkMode ? '切换到亮色模式' : '切换到暗黑模式'}
-        >
-          {isDarkMode ? (
-            // 太阳图标 (亮色模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          ) : (
-            // 月亮图标 (暗黑模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          )}
-        </button>
-
-        {/* 回到顶部按钮 */}
-        {showBackToTop && (
-          <button
-            onClick={scrollToTop}
-            className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-            style={{
-              background: 'var(--card-bg)',
-              borderColor: 'var(--card-border)',
-              color: 'var(--text-primary)'
-            }}
-            title="回到顶部"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </button>
-        )}
-      </div>
     </div>
   );
 }

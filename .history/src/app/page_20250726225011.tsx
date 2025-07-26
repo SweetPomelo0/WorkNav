@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Home() {
   // 定义状态来跟踪当前选中的分类
@@ -10,48 +10,12 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   // 定义移动端搜索框展开状态
   const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
-  // 定义暗黑模式状态
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  // 定义显示回到顶部按钮的状态
-  const [showBackToTop, setShowBackToTop] = useState(false);
-
-  // 初始化暗黑模式
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    
-    setIsDarkMode(shouldUseDark);
-    document.documentElement.classList.toggle('dark', shouldUseDark);
-  }, []);
-
-  // 监听滚动事件显示/隐藏回到顶部按钮
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // 切换暗黑模式
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    document.documentElement.classList.toggle('dark', newDarkMode);
-    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
-  };
-
-  // 回到顶部
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
   
   // 定义导航分类和链接
   const categories = [
     {
       title: "常用",
+      icon: "⭐",
       links: [
         { name: "澜精灵", url: "https://www.lanerp.com/Admin/index/index.html", desc: "日志 审批 工单", icon: "/img/lanjingling.png" },
         { name: "飞书", url: "https://enlightv.feishu.cn/wiki/D6Z1wOai9iVI4bkVlumcJprDn2e?fromScene=spaceOverview", desc: "产品 PRD 文档", icon: "https://feishu.cn/favicon.ico" },
@@ -64,6 +28,7 @@ export default function Home() {
     },
     {
       title: "AI工具",
+      icon: "🤖",
       links: [
         { name: "ChatGPT", url: "https://chatgpt.com/", desc: "AI问答 翻译 写作", icon: "https://cdn.oaistatic.com/assets/favicon-180x180-od45eci6.webp" },
         { name: "Gemini", url: "https://gemini.google.com/app", desc: "AI问答 搜索 翻译", icon: "https://www.gstatic.com/lamda/images/gemini_sparkle_4g_512_lt_f94943af3be039176192d.png" },
@@ -77,6 +42,7 @@ export default function Home() {
     },
     {
       title: "竞品",
+      icon: "🏢",
       links: [
         { name: "Disguise", url: "https://www.disguise.one/en", desc: "Disguise", icon: "/img/disguise.png" },
         { name: "Pixera", url: "https://pixera.one/zh/software/overview/", desc: "Pixera", icon: "/img/pixera.png" },
@@ -92,6 +58,7 @@ export default function Home() {
     },
     {
       title: "Coze",
+      icon: "🔧",
       links: [
         { name: "命名专家", url: "https://www.coze.com/store/agent/7530562770308956161?bot_id=true", desc: "Naming Assistant命名专家", icon: "/img/coze.png" },
         { name: "中译英", url: "https://www.coze.com/store/agent/7530572378075152440?bot_id=true", desc: "Chinese to English", icon: "/img/coze.png" },
@@ -100,6 +67,7 @@ export default function Home() {
     },
     {
       title: "扣子",
+      icon: "🔧",
       links: [
         { name: "命名专家", url: "https://www.coze.cn/store/agent/7530571775823577130?bot_id=true", desc: "Naming Assistant命名专家", icon: "/img/coze.png" },
         { name: "中译英", url: "https://www.coze.cn/store/agent/7530581452909035572?bot_id=true", desc: "中译英翻译专家", icon: "/img/coze.png" },
@@ -108,6 +76,7 @@ export default function Home() {
     },
     {
       title: "邮箱",
+      icon: "📧",
       links: [
         { name: "企业邮箱", url: "https://exmail.qq.com/cgi-bin/frame_html?sid=qPUC22bEtIEF7kUt,2&sign_type=&r=586a2a390ca023395a120877ca5870f0", desc: "企业邮箱", icon: "https://exmail.qq.com/favicon.ico" },
         { name: "Google邮箱", url: "https://mail.google.com/mail/u/0/#inbox", desc: "Google邮箱", icon: "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" },
@@ -117,6 +86,7 @@ export default function Home() {
     },
     {
       title: "社交媒体",
+      icon: "📱",
       links: [
         { name: "Twitter", url: "https://twitter.com", desc: "社交媒体平台", icon: "https://twitter.com/favicon.ico" },
         { name: "LinkedIn", url: "https://www.linkedin.com", desc: "职业社交网络", icon: "https://www.linkedin.com/favicon.ico" },
@@ -125,13 +95,13 @@ export default function Home() {
     },
     {
       title: "开发工具",
+      icon: "💻",
       links: [
         { name: "GitHub", url: "https://github.com", desc: "代码托管平台", icon: "https://github.com/favicon.ico" },
         { name: "Stack Overflow", url: "https://stackoverflow.com", desc: "程序员问答社区", icon: "https://stackoverflow.com/favicon.ico" },
         { name: "MDN", url: "https://developer.mozilla.org", desc: "Web开发文档", icon: "https://developer.mozilla.org/favicon.ico" },
       ]
     }
-    
     
   ];
 
@@ -147,15 +117,18 @@ export default function Home() {
       </header>
 
       {/* Category Navigation */}
-      <div className="mt-3 category-nav-container" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
+      <div className="sticky top-0 z-10 mt-3" style={{ background: 'rgba(var(--background-rgb), 0.9)', backdropFilter: 'blur(10px)' }}>
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-3 overflow-x-auto">
           <div className="flex items-center">
-            <div className="flex-shrink-0 mr-3 md:mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--accent)' }}>
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-              </svg>
+            <div className="flex-shrink-0 mr-2 md:mr-4">
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 md:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--accent)' }}>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+                <span className="hidden sm:inline text-sm font-medium" style={{ color: 'var(--text-primary)' }}>分类</span>
+              </div>
             </div>
-            <div className="flex space-x-1 md:space-x-2 overflow-x-auto category-scrollbar flex-grow">
+            <div className="flex space-x-1 md:space-x-2 overflow-x-auto pb-1 scrollbar-thin flex-grow">
               <a 
                 href="#"
                 onClick={(e) => {
@@ -167,6 +140,7 @@ export default function Home() {
                 style={{ 
                   background: (selectedCategory === "全部" && !isInitialLoad) ? 'var(--accent)' : 'var(--card-bg)',
                   border: '1px solid ' + ((selectedCategory === "全部" && !isInitialLoad) ? 'var(--accent)' : 'var(--card-border)'),
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
                   color: (selectedCategory === "全部" && !isInitialLoad) ? 'white' : 'var(--text-primary)'
                 }}
               >
@@ -189,6 +163,7 @@ export default function Home() {
                   style={{ 
                     background: selectedCategory === category.title ? 'var(--accent)' : 'var(--card-bg)',
                     border: '1px solid ' + (selectedCategory === category.title ? 'var(--accent)' : 'var(--card-border)'),
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
                     color: selectedCategory === category.title ? 'white' : 'var(--text-primary)'
                   }}
                 >
@@ -219,7 +194,7 @@ export default function Home() {
                 </div>
                 <input
                   type="text"
-                  placeholder="搜索..."
+                  placeholder="搜索网站..."
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
@@ -229,12 +204,12 @@ export default function Home() {
                       setIsInitialLoad(false);
                     }
                   }}
-                  className="w-64 pl-10 pr-4 text-xs rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+                  className="w-64 pl-10 pr-4 py-2 text-sm rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
                   style={{
                     background: 'var(--card-bg)',
                     borderColor: 'var(--card-border)',
                     color: 'var(--text-primary)',
-                    height: '34px'
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = 'var(--accent)';
@@ -253,15 +228,11 @@ export default function Home() {
                   // 搜索图标按钮
                   <button
                     onClick={() => setIsMobileSearchExpanded(true)}
-                    className="rounded-lg border transition-all duration-200 hover:shadow-md"
+                    className="p-2 rounded-lg border transition-all duration-200 hover:shadow-md"
                     style={{
                       background: 'var(--card-bg)',
                       borderColor: 'var(--card-border)',
-                      height: '34px',
-                      width: '34px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                     }}
                   >
                     <svg 
@@ -301,7 +272,7 @@ export default function Home() {
                       </div>
                       <input
                         type="text"
-                        placeholder="搜索..."
+                        placeholder="搜索网站..."
                         value={searchTerm}
                         onChange={(e) => {
                           setSearchTerm(e.target.value);
@@ -311,12 +282,12 @@ export default function Home() {
                             setIsInitialLoad(false);
                           }
                         }}
-                        className="w-36 sm:w-48 pl-10 pr-4 text-xs rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
+                        className="w-36 sm:w-48 pl-10 pr-4 py-2 text-sm rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50"
                         style={{
                           background: 'var(--card-bg)',
                           borderColor: 'var(--card-border)',
                           color: 'var(--text-primary)',
-                          height: '34px'
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                         }}
                         onFocus={(e) => {
                           e.target.style.borderColor = 'var(--accent)';
@@ -335,15 +306,11 @@ export default function Home() {
                         setIsMobileSearchExpanded(false);
                         setSearchTerm("");
                       }}
-                      className="rounded-lg border transition-all duration-200 hover:shadow-md"
+                      className="p-2 rounded-lg border transition-all duration-200 hover:shadow-md"
                       style={{
                         background: 'var(--card-bg)',
                         borderColor: 'var(--card-border)',
-                        height: '34px',
-                        width: '34px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
                       }}
                     >
                       <svg 
@@ -395,18 +362,14 @@ export default function Home() {
              <div 
                key={index}
                id={`category-${index}`} 
-               className="rounded-2xl border transition-all duration-300 hover:shadow-lg"
                style={{ 
                  background: 'var(--card-bg)', 
-                 borderColor: 'var(--card-border)',
-                 paddingTop: '16px',
-                 paddingBottom: '24px',
-                 paddingLeft: '24px',
-                 paddingRight: '24px'
-               }}
+                 borderColor: 'var(--card-border)' 
+               }} 
+               className="rounded-2xl border p-6 transition-all duration-300 hover:shadow-lg"
              >
                <h2 
-                 className="text-base font-semibold mb-4 relative inline-block"
+                 className="text-lg font-semibold mb-6 relative inline-block"
                  style={{ color: 'var(--text-primary)' }}
                >
                  <span className="relative z-10">{category.title}</span>
@@ -480,58 +443,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="text-center">
             <p style={{ color: 'var(--text-secondary)' }} className="text-sm">
-              © 2025 WorkNav. Cathy的工作导航站
+              © 2024 WorkNav. Cathy的工作导航站
               <span className="inline-block mx-2 opacity-50">•</span>
               <span className="opacity-70">极简风格</span>
             </p>
           </div>
         </div>
       </footer>
-
-      {/* 固定按钮组 */}
-      <div className="fixed bottom-6 right-6 flex flex-col space-y-3 z-50">
-        {/* 暗黑模式切换按钮 */}
-        <button
-          onClick={toggleDarkMode}
-          className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-          style={{
-            background: 'var(--card-bg)',
-            borderColor: 'var(--card-border)',
-            color: 'var(--text-primary)'
-          }}
-          title={isDarkMode ? '切换到亮色模式' : '切换到暗黑模式'}
-        >
-          {isDarkMode ? (
-            // 太阳图标 (亮色模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          ) : (
-            // 月亮图标 (暗黑模式)
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          )}
-        </button>
-
-        {/* 回到顶部按钮 */}
-        {showBackToTop && (
-          <button
-            onClick={scrollToTop}
-            className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
-            style={{
-              background: 'var(--card-bg)',
-              borderColor: 'var(--card-border)',
-              color: 'var(--text-primary)'
-            }}
-            title="回到顶部"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </button>
-        )}
-      </div>
     </div>
   );
 }

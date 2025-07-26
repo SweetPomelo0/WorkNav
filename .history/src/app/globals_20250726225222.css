@@ -43,24 +43,6 @@
   }
 }
 
-/* 手动暗黑模式切换 */
-.dark {
-  --background: #121212;
-  --background-rgb: 18, 18, 18;
-  --foreground: #f8f9fa;
-  --card-bg: #1e1e1e;
-  --card-border: #2d2d2d;
-  --card-hover: #2a2a2a;
-  --accent: #4361ee;
-  --accent-hover: #5a72f0;
-  --text-primary: #f8f9fa;
-  --text-secondary: #adb5bd;
-  --text-tertiary: #6c757d;
-  --header-bg: #1a1a1a;
-  --header-bg-rgb: 26, 26, 26;
-  --footer-bg: #1a1a1a;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -163,7 +145,6 @@ html {
   transition: background-color 0.2s ease;
 }
 
-.category-nav-container:hover
-  .category-scrollbar::-webkit-scrollbar-thumb:hover {
+.category-nav-container:hover .category-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
 }
