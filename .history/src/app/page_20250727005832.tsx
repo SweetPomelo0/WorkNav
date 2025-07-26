@@ -97,7 +97,7 @@ export default function Home() {
         { name: "Christie Pandoras Box", url: "https://www.christiedigital.com/products/christie-pandoras-box/", desc: "Christie Pandoras Box", icon: "https://www.christiedigital.com/apple-touch-icon.png" },
         { name: "MadMapper", url: "https://madmapper.com/madmapper/software", desc: "MadMapper", icon: "https://madmapper.com/images/favicon/apple-touch-icon.png" },
         { name: "Kystar", url: "https://www.kystar.com.cn/#indSection1", desc: "凯视达", icon: "/img/ksd.png" },
-        { name: "Novastar", url: "https://novastar-led.cn/index/products/index/id/124.html", desc: "Novastar诺瓦", icon: "https://novastar-led.cn/static/img/favicon.ico" }
+        { name: "Novastar", url: "https://novastar-led.cn/index/products/index/id/124.html", desc: "Novastar诺瓦", icon: "/img/novastar.png" }
 
       ]
     },

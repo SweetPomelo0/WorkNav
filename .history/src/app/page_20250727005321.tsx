@@ -80,7 +80,7 @@ export default function Home() {
         { name: "沉浸式翻译", url: "https://immersivetranslate.com/zh-Hans/?utm_source=ai-bot.cn", desc: "中英对照的网页翻译插件", icon: "https://immersivetranslate.com/favicon.ico" },
         { name: "Midjourney", url: "https://www.midjourney.com/explore?tab=video_top", desc: "AI驱动的图像生成工具", icon: "/img/mj.png" },
         { name: "即梦", url: "https://jimeng.jianying.com/ai-tool/home", desc: "AI图片/视频生成", icon: "/img/jimeng.png" },
-        { name: "Perplexity", url: "https://www.perplexity.ai/", desc: "AI搜索 问答", icon: "/img/perplexity.png" }
+        { name: "Perplexity", url: "https://www.perplexity.ai/", desc: "AI搜索 问答", icon: "https://www.perplexity.ai/apple-touch-icon.png" }
 
       ]
     },
@@ -95,9 +95,7 @@ export default function Home() {
         { name: "Green Hippo", url: "https://www.green-hippo.com/", desc: "Green Hippo", icon: "https://www.green-hippo.com/wp-content/themes/greenhippo/assets/icons/favicon.ico" },
         { name: "Millumin", url: "https://millumin.com/v5/index.php", desc: "Millumin", icon: "https://www.millumin.com/favicon/apple-icon-180x180.png" },
         { name: "Christie Pandoras Box", url: "https://www.christiedigital.com/products/christie-pandoras-box/", desc: "Christie Pandoras Box", icon: "https://www.christiedigital.com/apple-touch-icon.png" },
-        { name: "MadMapper", url: "https://madmapper.com/madmapper/software", desc: "MadMapper", icon: "https://madmapper.com/images/favicon/apple-touch-icon.png" },
-        { name: "Kystar", url: "https://www.kystar.com.cn/#indSection1", desc: "凯视达", icon: "/img/ksd.png" },
-        { name: "Novastar", url: "https://novastar-led.cn/index/products/index/id/124.html", desc: "Novastar诺瓦", icon: "https://novastar-led.cn/static/img/favicon.ico" }
+        { name: "MadMapper", url: "https://madmapper.com/madmapper/software", desc: "MadMapper", icon: "https://madmapper.com/images/favicon/apple-touch-icon.png" }
 
       ]
     },
