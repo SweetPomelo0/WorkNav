@@ -12,6 +12,8 @@ export default function Home() {
   const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
   // 定义暗黑模式状态
   const [isDarkMode, setIsDarkMode] = useState(false);
+  // 定义用户是否手动切换过主题的状态
+  const [isUserToggled, setIsUserToggled] = useState(false);
   // 定义显示回到顶部按钮的状态
   const [showBackToTop, setShowBackToTop] = useState(false);
 
@@ -25,13 +27,16 @@ export default function Home() {
     // 监听系统主题变化
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
+      // 只有在用户没有手动切换过主题时才跟随系统主题
+      if (!isUserToggled) {
+        setIsDarkMode(e.matches);
+        document.documentElement.classList.toggle('dark', e.matches);
+      }
     };
     
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  }, [isUserToggled]);
 
   // 监听滚动事件显示/隐藏回到顶部按钮
   useEffect(() => {
@@ -48,6 +53,8 @@ export default function Home() {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
     document.documentElement.classList.toggle('dark', newDarkMode);
+    // 标记用户已手动切换过主题
+    setIsUserToggled(true);
   };
 
   // 回到顶部

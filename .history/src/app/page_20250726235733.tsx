@@ -12,25 +12,29 @@ export default function Home() {
   const [isMobileSearchExpanded, setIsMobileSearchExpanded] = useState(false);
   // 定义暗黑模式状态
   const [isDarkMode, setIsDarkMode] = useState(false);
+  // 定义初始化完成状态
+  const [isInitialized, setIsInitialized] = useState(false);
   // 定义显示回到顶部按钮的状态
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // 初始化暗黑模式 - 检测系统主题
+  // 初始化暗黑模式
   useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    setIsDarkMode(prefersDark);
-    document.documentElement.classList.toggle('dark', prefersDark);
-    
-    // 监听系统主题变化
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
-    };
-    
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    // 确保在客户端运行
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+      
+      // 先设置DOM类名，再设置状态
+      if (shouldUseDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      setIsDarkMode(shouldUseDark);
+      setIsInitialized(true);
+    }
   }, []);
 
   // 监听滚动事件显示/隐藏回到顶部按钮
@@ -43,11 +47,24 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 切换暗黑模式 - 不持久化，直接切换
+  // 切换暗黑模式
   const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode;
-    setIsDarkMode(newDarkMode);
-    document.documentElement.classList.toggle('dark', newDarkMode);
+    if (typeof window !== 'undefined') {
+      const newDarkMode = !isDarkMode;
+      
+      // 先更新DOM类名
+      if (newDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      // 保存到localStorage
+      localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
+      
+      // 最后更新状态
+      setIsDarkMode(newDarkMode);
+    }
   };
 
   // 回到顶部

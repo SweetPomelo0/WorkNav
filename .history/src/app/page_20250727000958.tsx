@@ -15,22 +15,42 @@ export default function Home() {
   // 定义显示回到顶部按钮的状态
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // 初始化暗黑模式 - 检测系统主题
+  // 初始化暗黑模式
   useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // 检查是否有保存的主题偏好
+    const savedTheme = localStorage.getItem('theme');
+    // 检查系统偏好
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
     
-    setIsDarkMode(prefersDark);
-    document.documentElement.classList.toggle('dark', prefersDark);
-    
-    // 监听系统主题变化
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
+    // 根据系统偏好设置初始主题
+    const setThemeBySystemPreference = () => {
+      const isDark = prefersDark.matches;
+      setIsDarkMode(isDark);
+      document.documentElement.classList.toggle('dark', isDark);
+      // 清除本地存储的主题设置，以便跟随系统
+      localStorage.removeItem('theme');
     };
     
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    // 如果有保存的主题设置，使用它；否则跟随系统
+    if (savedTheme) {
+      const shouldUseDark = savedTheme === 'dark';
+      setIsDarkMode(shouldUseDark);
+      document.documentElement.classList.toggle('dark', shouldUseDark);
+    } else {
+      setThemeBySystemPreference();
+    }
+    
+    // 监听系统主题变化
+    prefersDark.addEventListener('change', (e) => {
+      // 只有当没有本地存储的主题时才跟随系统
+      if (!localStorage.getItem('theme')) {
+        setThemeBySystemPreference();
+      }
+    });
+    
+    return () => {
+      prefersDark.removeEventListener('change', setThemeBySystemPreference);
+    };
   }, []);
 
   // 监听滚动事件显示/隐藏回到顶部按钮
@@ -43,11 +63,23 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 切换暗黑模式 - 不持久化，直接切换
+  // 切换暗黑模式
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
     document.documentElement.classList.toggle('dark', newDarkMode);
+    // 保存用户的主题偏好到本地存储
+    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
+  };
+  
+  // 重置为跟随系统主题
+  const resetToSystemTheme = () => {
+    // 清除本地存储的主题设置
+    localStorage.removeItem('theme');
+    // 根据系统偏好设置主题
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(prefersDark);
+    document.documentElement.classList.toggle('dark', prefersDark);
   };
 
   // 回到顶部

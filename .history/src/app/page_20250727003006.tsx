@@ -24,7 +24,7 @@ export default function Home() {
     
     // 监听系统主题变化
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
+    const handleChange = (e) => {
       setIsDarkMode(e.matches);
       document.documentElement.classList.toggle('dark', e.matches);
     };

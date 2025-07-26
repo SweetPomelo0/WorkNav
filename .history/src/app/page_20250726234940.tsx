@@ -15,22 +15,14 @@ export default function Home() {
   // 定义显示回到顶部按钮的状态
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // 初始化暗黑模式 - 检测系统主题
+  // 初始化暗黑模式
   useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
     
-    setIsDarkMode(prefersDark);
-    document.documentElement.classList.toggle('dark', prefersDark);
-    
-    // 监听系统主题变化
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
-    };
-    
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    setIsDarkMode(shouldUseDark);
+    document.documentElement.classList.toggle('dark', shouldUseDark);
   }, []);
 
   // 监听滚动事件显示/隐藏回到顶部按钮
@@ -43,11 +35,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 切换暗黑模式 - 不持久化，直接切换
+  // 切换暗黑模式
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
     document.documentElement.classList.toggle('dark', newDarkMode);
+    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
   };
 
   // 回到顶部
@@ -500,11 +493,13 @@ export default function Home() {
         {/* 暗黑模式切换按钮 */}
         <button
           onClick={toggleDarkMode}
-          className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center"
+          className="w-12 h-12 rounded-full border transition-all duration-200 hover:scale-110 hover:shadow-lg flex items-center justify-center cursor-pointer"
           style={{
             background: 'var(--card-bg)',
             borderColor: 'var(--card-border)',
-            color: 'var(--text-primary)'
+            color: 'var(--text-primary)',
+            position: 'relative',
+            zIndex: 1000
           }}
           title={isDarkMode ? '切换到亮色模式' : '切换到暗黑模式'}
         >

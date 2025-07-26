@@ -15,22 +15,65 @@ export default function Home() {
   // 定义显示回到顶部按钮的状态
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // 初始化暗黑模式 - 检测系统主题
+  // 初始化暗黑模式
   useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // 检查localStorage中是否有用户的主题偏好
+    const savedTheme = localStorage.getItem('theme');
     
-    setIsDarkMode(prefersDark);
-    document.documentElement.classList.toggle('dark', prefersDark);
+    if (savedTheme) {
+      // 如果用户有保存的偏好，使用保存的值
+      const shouldUseDark = savedTheme === 'dark';
+      setIsDarkMode(shouldUseDark);
+      
+      // 明确添加或移除dark类，而不是toggle
+      if (shouldUseDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      console.log('从localStorage加载主题:', shouldUseDark ? '暗黑模式' : '亮色模式');
+    } else {
+      // 如果没有保存的偏好，检测系统主题
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(prefersDark);
+      
+      // 明确添加或移除dark类，而不是toggle
+      if (prefersDark) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      console.log('从系统主题加载:', prefersDark ? '暗黑模式' : '亮色模式');
+    }
     
     // 监听系统主题变化
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+      // 只有当用户没有明确设置主题偏好时，才跟随系统变化
+      if (!localStorage.getItem('theme')) {
+        const newDarkMode = event.matches;
+        setIsDarkMode(newDarkMode);
+        
+        // 明确添加或移除dark类，而不是toggle
+        if (newDarkMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        
+        console.log('系统主题变化:', newDarkMode ? '暗黑模式' : '亮色模式');
+      }
     };
     
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    // 添加监听器
+    darkModeMediaQuery.addEventListener('change', handleSystemThemeChange);
+    
+    // 清理函数
+    return () => {
+      darkModeMediaQuery.removeEventListener('change', handleSystemThemeChange);
+    };
   }, []);
 
   // 监听滚动事件显示/隐藏回到顶部按钮
@@ -43,11 +86,25 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 切换暗黑模式 - 不持久化，直接切换
+  // 切换暗黑模式
   const toggleDarkMode = () => {
+    // 切换到相反的主题状态
     const newDarkMode = !isDarkMode;
+    
+    // 更新React状态
     setIsDarkMode(newDarkMode);
-    document.documentElement.classList.toggle('dark', newDarkMode);
+    
+    // 更新HTML根元素的class
+    if (newDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
+    // 将用户选择保存到localStorage
+    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
+    
+    console.log('主题已切换为:', newDarkMode ? '暗黑模式' : '亮色模式');
   };
 
   // 回到顶部

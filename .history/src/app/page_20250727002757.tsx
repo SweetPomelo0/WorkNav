@@ -15,22 +15,23 @@ export default function Home() {
   // 定义显示回到顶部按钮的状态
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // 初始化暗黑模式 - 检测系统主题
+  // 初始化主题
   useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    setIsDarkMode(prefersDark);
-    document.documentElement.classList.toggle('dark', prefersDark);
+    // 优先级：用户偏好 > 系统主题
+    let shouldUseDark;
+    if (savedTheme !== null) {
+      // 如果用户有保存的偏好，使用保存的值
+      shouldUseDark = savedTheme === 'dark';
+    } else {
+      // 如果没有保存的偏好，跟随系统主题
+      shouldUseDark = prefersDark;
+    }
     
-    // 监听系统主题变化
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
-    };
-    
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    setIsDarkMode(shouldUseDark);
+    document.documentElement.classList.toggle('dark', shouldUseDark);
   }, []);
 
   // 监听滚动事件显示/隐藏回到顶部按钮
@@ -43,11 +44,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 切换暗黑模式 - 不持久化，直接切换
+  // 切换暗黑模式
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
     document.documentElement.classList.toggle('dark', newDarkMode);
+    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
   };
 
   // 回到顶部

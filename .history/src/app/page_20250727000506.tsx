@@ -15,22 +15,28 @@ export default function Home() {
   // 定义显示回到顶部按钮的状态
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // 初始化暗黑模式 - 检测系统主题
+  // 初始化主题
   useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    setIsDarkMode(prefersDark);
-    document.documentElement.classList.toggle('dark', prefersDark);
-    
-    // 监听系统主题变化
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      setIsDarkMode(e.matches);
-      document.documentElement.classList.toggle('dark', e.matches);
-    };
-    
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        setIsDarkMode(true);
+      } else if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+        setIsDarkMode(false);
+      } else {
+        // 没有用户设置，跟随系统
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.documentElement.classList.add('dark');
+          setIsDarkMode(true);
+        } else {
+          document.documentElement.classList.remove('dark');
+          setIsDarkMode(false);
+        }
+      }
+    }
   }, []);
 
   // 监听滚动事件显示/隐藏回到顶部按钮
@@ -43,11 +49,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 切换暗黑模式 - 不持久化，直接切换
+  // 切换暗黑模式
   const toggleDarkMode = () => {
     const newDarkMode = !isDarkMode;
     setIsDarkMode(newDarkMode);
     document.documentElement.classList.toggle('dark', newDarkMode);
+    localStorage.setItem('theme', newDarkMode ? 'dark' : 'light');
   };
 
   // 回到顶部
@@ -67,6 +74,7 @@ export default function Home() {
         { name: "Hirender", url: "https://www.hirender.com/#/home", desc: "Hirender官网", icon: "https://www.hirender.com/favicon.ico" },
         { name: "hecoos", url: "https://www.hecoos.com/web/#/home", desc: "hecoos官网", icon: "https://www.hecoos.com/favicon.ico" },
         { name: "在线授权", url: "https://license.enlightv.com/web/", desc: "云授权管理", icon: "data:image/jpeg;base64,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" },
+        { name: "产品规格书", url: "https://doc.weixin.qq.com/sheet/e3_AIoAXwbcAOcMw4Gp1xqSBKFUGK4yP?scode=AH4A8gcSAA4ihw7B5r", desc: "企业微信文档", icon: "https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico" },
       ]
     },
     {
