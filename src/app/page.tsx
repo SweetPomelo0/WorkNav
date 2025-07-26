@@ -90,12 +90,14 @@ export default function Home() {
         { name: "Perplexity", url: "https://www.perplexity.ai/", desc: "AI搜索 问答", icon: "/img/perplexity.png" },
         { name: "Kimi", url: "https://www.kimi.com/", desc: "国产AI大模型", icon: "https://www.kimi.com/favicon.ico" },
         { name: "Deepseek", url: "https://chat.deepseek.com/", desc: "AI问答 深度思考", icon: "https://cdn.deepseek.com/chat/icon.png" },
+        { name: "豆包", url: "https://www.doubao.com/chat/", desc: "拍照搜题 生成图片", icon: "/img/doubao.png" },
         { name: "飞书妙记", url: "https://enlightv.feishu.cn/minutes/me", desc: "会议纪要 语音转文字", icon: "/img/miaoji.png" },
         { name: "沉浸式翻译", url: "https://immersivetranslate.com/zh-Hans/?utm_source=ai-bot.cn", desc: "中英对照的网页翻译插件", icon: "https://immersivetranslate.com/favicon.ico" },
         { name: "Midjourney", url: "https://www.midjourney.com/explore?tab=video_top", desc: "AI驱动的图像生成工具", icon: "/img/mj.png" },
         { name: "即梦", url: "https://jimeng.jianying.com/ai-tool/home", desc: "AI图片/视频生成", icon: "/img/jimeng.png" },
         { name: "Cherry Studio", url: "https://www.cherry-ai.com/", desc: "Cherry Studio", icon: "https://www.cherry-ai.com/assets/favicon-BmbgeFTf.png" },
-        { name: "Product Hunt", url: "https://www.producthunt.com/", desc: "Product Hunt", icon: "https://www.producthunt.com/favicon.ico" },
+        { name: "Tripo3D", url: "https://studio.tripo3d.ai/home", desc: "3D模型生成", icon: "https://studio.tripo3d.ai/favicon.ico" },
+
         
 
       ]
@@ -135,6 +137,19 @@ export default function Home() {
       ]
     },
     {
+      title: "产品",
+      links: [
+        { name: "Product Hunt", url: "https://www.producthunt.com/", desc: "Product Hunt", icon: "https://www.producthunt.com/favicon.ico" },
+        { name: "woshipm", url: "https://www.woshipm.com/", desc: "产品设计 PRD 教程", icon: "https://image.woshipm.com/wp-files/2024/11/MbtEc6Z3dCX41DLY4alz.png" },
+        { name: "Dribbble", url: "https://dribbble.com/shots/popular", desc: "Dribbble", icon: "/img/dribbble.png" },
+        { name: "Navnav", url: "https://navnav.co/", desc: "APP 网页截图 灵感", icon: "/img/nana.png" },
+        { name: "极客", url: "https://www.geekpark.net/", desc: "科技产品 新闻动态", icon: "/img/geekpark.png" },
+        { name: "花瓣", url: "https://huaban.com/", desc: "设计灵感 素材模版", icon: "https://huaban.com/img/touch-icon-ipad-retina.png" },
+        { name: "站酷", url: "https://www.zcool.com.cn/", desc: "图标 UI 素材", icon: "/img/z.png" },
+
+      ]
+    },
+    {
       title: "邮箱",
       links: [
         { name: "企业邮箱", url: "https://exmail.qq.com/cgi-bin/frame_html?sid=qPUC22bEtIEF7kUt,2&sign_type=&r=586a2a390ca023395a120877ca5870f0", desc: "企业邮箱", icon: "https://exmail.qq.com/favicon.ico" },
@@ -148,9 +163,11 @@ export default function Home() {
       links: [
         { name: "Twitter", url: "https://twitter.com", desc: "社交媒体平台", icon: "https://twitter.com/favicon.ico" },
         { name: "LinkedIn", url: "https://www.linkedin.com", desc: "职业社交网络", icon: "https://www.linkedin.com/favicon.ico" },
-        { name: "Reddit", url: "https://www.reddit.com", desc: "社区讨论平台", icon: "https://www.reddit.com/favicon.ico" }
+        { name: "Reddit", url: "https://www.reddit.com", desc: "社区讨论平台", icon: "https://www.reddit.com/favicon.ico" },
+        { name: "YouTube", url: "https://www.youtube.com/", desc: "视频分享平台", icon: "https://www.youtube.com/favicon.ico" }
       ]
     },
+
     {
       title: "开发工具",
       links: [
