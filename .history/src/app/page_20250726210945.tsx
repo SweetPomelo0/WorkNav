@@ -90,8 +90,9 @@ export default function Home() {
       {/* Header */}
       <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)' }}>
         <div className="max-w-7xl mx-auto px-6 py-5">
-          <div className="text-center">
+          <div className="text-center flex items-center justify-center gap-3">
             <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">WorkNav</h1>
+            <span className="text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 dark:border-blue-800 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 transition-all duration-300 hover:shadow-sm hover:border-blue-300 dark:hover:border-blue-700" style={{ color: 'var(--text-secondary)' }}>工作网址导航</span>
           </div>
         </div>
       </header>
@@ -167,7 +168,20 @@ export default function Home() {
                            </p>
                          </div>
                        </div>
-
+                       <svg
+                         className="w-4 h-4 transition-colors ml-3 flex-shrink-0 group-hover:translate-x-1"
+                         style={{ color: 'var(--text-tertiary)' }}
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                       >
+                         <path
+                           strokeLinecap="round"
+                           strokeLinejoin="round"
+                           strokeWidth={2}
+                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                         />
+                       </svg>
                      </div>
                    </a>
                  ))}

@@ -89,15 +89,20 @@ export default function Home() {
     <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--text-primary)' }}>
       {/* Header */}
       <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-5">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">WorkNav</h1>
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-center relative">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 blur-xl opacity-70 -z-10"></div>
+            <h1 className="text-3xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 inline-block relative">
+              <span className="relative z-10">WorkNav</span>
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-600/30 to-indigo-600/30 dark:from-blue-400/30 dark:to-indigo-400/30 rounded-full"></span>
+            </h1>
+            <p className="text-sm font-medium tracking-wide" style={{ color: 'var(--text-secondary)' }}>工作网址导航</p>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-       <main className="max-w-7xl mx-auto px-6 py-8">
+       <main className="max-w-7xl mx-auto px-6 py-12">
          <div className="space-y-10">
            {categories.map((category, index) => (
              <div 
@@ -167,7 +172,20 @@ export default function Home() {
                            </p>
                          </div>
                        </div>
-
+                       <svg
+                         className="w-4 h-4 transition-colors ml-3 flex-shrink-0 group-hover:translate-x-1"
+                         style={{ color: 'var(--text-tertiary)' }}
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                       >
+                         <path
+                           strokeLinecap="round"
+                           strokeLinejoin="round"
+                           strokeWidth={2}
+                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                         />
+                       </svg>
                      </div>
                    </a>
                  ))}

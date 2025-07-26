@@ -88,16 +88,51 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--text-primary)' }}>
       {/* Header */}
-      <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-5">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">WorkNav</h1>
+      <header className="relative header-texture" style={{ background: 'var(--header-bg)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
+        {/* 背景装饰圆环 */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-blue-500/5 opacity-30 header-rotate hidden md:block"></div>
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-indigo-500/5 opacity-20 header-rotate hidden md:block" style={{ animationDirection: 'reverse', animationDuration: '80s' }}></div>
+        
+        <div className="max-w-7xl mx-auto px-6 py-8 relative z-10">
+          <div className="text-center relative">
+            {/* 装饰元素 - 左侧 */}
+            <div className="absolute left-0 top-1/2 transform -translate-y-1/2 opacity-10 hidden md:block header-float">
+              <img src="/globe.svg" alt="" className="w-16 h-16" />
+            </div>
+            
+            {/* 装饰元素 - 左上角 */}
+            <div className="absolute left-1/4 top-0 transform -translate-y-1/2 opacity-5 hidden lg:block">
+              <img src="/file.svg" alt="" className="w-10 h-10" />
+            </div>
+            
+            {/* 标题区域 */}
+            <div className="relative inline-block header-card mx-auto my-2">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-lg blur-xl opacity-30 header-glow"></div>
+              <h1 className="relative text-4xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 text-shadow-sm">WorkNav</h1>
+              
+              <p className="text-base font-medium mt-3" style={{ color: 'var(--text-secondary)' }}>
+                <span className="inline-block px-4 py-1 rounded-full bg-gradient-to-r from-blue-500/5 to-indigo-500/5 border border-blue-500/10">工作网址导航</span>
+              </p>
+            </div>
+            
+            {/* 装饰元素 - 右侧 */}
+            <div className="absolute right-0 top-1/2 transform -translate-y-1/2 opacity-10 hidden md:block header-float" style={{ animationDelay: '2s' }}>
+              <img src="/window.svg" alt="" className="w-16 h-16" />
+            </div>
+            
+            {/* 装饰元素 - 右上角 */}
+            <div className="absolute right-1/4 top-0 transform -translate-y-1/2 opacity-5 hidden lg:block">
+              <img src="/file.svg" alt="" className="w-10 h-10" />
+            </div>
           </div>
         </div>
+        
+        {/* 精致分隔线 */}
+        <div className="elegant-divider"></div>
       </header>
 
       {/* Main Content */}
-       <main className="max-w-7xl mx-auto px-6 py-8">
+       <main className="max-w-7xl mx-auto px-6 py-12">
          <div className="space-y-10">
            {categories.map((category, index) => (
              <div 
@@ -167,7 +202,20 @@ export default function Home() {
                            </p>
                          </div>
                        </div>
-
+                       <svg
+                         className="w-4 h-4 transition-colors ml-3 flex-shrink-0 group-hover:translate-x-1"
+                         style={{ color: 'var(--text-tertiary)' }}
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                       >
+                         <path
+                           strokeLinecap="round"
+                           strokeLinejoin="round"
+                           strokeWidth={2}
+                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                         />
+                       </svg>
                      </div>
                    </a>
                  ))}

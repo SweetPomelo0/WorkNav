@@ -88,16 +88,21 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--text-primary)' }}>
       {/* Header */}
-      <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-5">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">WorkNav</h1>
+      <header style={{ background: 'var(--header-bg)', borderBottom: '1px solid var(--card-border)', boxShadow: '0 2px 10px rgba(0,0,0,0.03)' }}>
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-center relative">
+            <div className="inline-block relative">              
+              <span className="absolute -inset-1 blur-md opacity-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg"></span>
+              <h1 className="text-3xl font-bold mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 relative">WorkNav</h1>
+            </div>
+            <p className="text-base" style={{ color: 'var(--text-secondary)', letterSpacing: '0.5px' }}>工作网址导航</p>
+            <div className="absolute left-1/2 -bottom-4 w-16 h-1 rounded-full bg-gradient-to-r from-blue-600/30 to-indigo-600/30 transform -translate-x-1/2"></div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-       <main className="max-w-7xl mx-auto px-6 py-8">
+       <main className="max-w-7xl mx-auto px-6 py-12">
          <div className="space-y-10">
            {categories.map((category, index) => (
              <div 
@@ -167,7 +172,20 @@ export default function Home() {
                            </p>
                          </div>
                        </div>
-
+                       <svg
+                         className="w-4 h-4 transition-colors ml-3 flex-shrink-0 group-hover:translate-x-1"
+                         style={{ color: 'var(--text-tertiary)' }}
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                       >
+                         <path
+                           strokeLinecap="round"
+                           strokeLinejoin="round"
+                           strokeWidth={2}
+                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                         />
+                       </svg>
                      </div>
                    </a>
                  ))}
