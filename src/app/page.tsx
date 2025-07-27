@@ -495,17 +495,25 @@ export default function Home() {
                                src={link.icon} 
                                alt={`${link.name} icon`}
                                className="w-6 h-6 object-contain"
+                               onError={(e) => {
+                                 // 图片加载失败时，将其隐藏并显示第一个字母
+                                 e.currentTarget.style.display = 'none';
+                                 // 添加类型检查和类型断言
+                                 const sibling = e.currentTarget.nextElementSibling;
+                                 if (sibling && sibling instanceof HTMLElement) {
+                                   sibling.style.display = 'flex';
+                                 }
+                               }}
                              />
-                           ) : (
-                             <div 
-                               style={{ background: 'var(--card-hover)' }}
-                               className="w-6 h-6 rounded-md flex items-center justify-center"
-                             >
-                               <span style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
-                                 {link.name.charAt(0).toUpperCase()}
-                               </span>
-                             </div>
-                           )}
+                           ) : null}
+                           <div 
+                             style={{ background: 'var(--card-hover)', display: link.icon ? 'none' : 'flex' }}
+                             className="w-6 h-6 rounded-md flex items-center justify-center"
+                           >
+                             <span style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
+                               {link.name.charAt(0).toUpperCase()}
+                             </span>
+                           </div>
                          </div>
                          <div className="flex-1">
                            <h3 
