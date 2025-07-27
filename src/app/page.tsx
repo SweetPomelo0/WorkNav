@@ -97,6 +97,7 @@ export default function Home() {
         { name: "即梦", url: "https://jimeng.jianying.com/ai-tool/home", desc: "AI图片/视频生成", icon: "/img/jimeng.png" },
         { name: "Cherry Studio", url: "https://www.cherry-ai.com/", desc: "Cherry Studio", icon: "https://www.cherry-ai.com/assets/favicon-BmbgeFTf.png" },
         { name: "Tripo3D", url: "https://studio.tripo3d.ai/home", desc: "3D模型生成", icon: "https://studio.tripo3d.ai/favicon.ico" },
+        { name: "腾讯混元3D", url: "https://3d.hunyuan.tencent.com/", desc: "文生3D 图生3D 3D世界模型", icon: "https://cdn-3d-prod.hunyuan.tencent.com/public/static/favicon/apple-touch-icon.png" },
 
         
 
