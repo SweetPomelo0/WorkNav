@@ -92,6 +92,7 @@ export default function Home() {
         { name: "Deepseek", url: "https://chat.deepseek.com/", desc: "AI问答 深度思考", icon: "https://cdn.deepseek.com/chat/icon.png" },
         { name: "豆包", url: "https://www.doubao.com/chat/", desc: "拍照搜题 生成图片", icon: "/img/doubao.png" },
         { name: "飞书妙记", url: "https://enlightv.feishu.cn/minutes/me", desc: "会议纪要 语音转文字", icon: "/img/miaoji.png" },
+        { name: "通义听悟", url: "https://tingwu.aliyun.com/home", desc: "会议纪要 实时翻译", icon: "/img/tingwu.png" },
         { name: "沉浸式翻译", url: "https://immersivetranslate.com/zh-Hans/?utm_source=ai-bot.cn", desc: "中英对照的网页翻译插件", icon: "https://immersivetranslate.com/favicon.ico" },
         { name: "Midjourney", url: "https://www.midjourney.com/explore?tab=video_top", desc: "AI驱动的图像生成工具", icon: "/img/mj.png" },
         { name: "即梦", url: "https://jimeng.jianying.com/ai-tool/home", desc: "AI图片/视频生成", icon: "/img/jimeng.png" },
@@ -147,6 +148,15 @@ export default function Home() {
         { name: "极客", url: "https://www.geekpark.net/", desc: "科技产品 新闻动态", icon: "/img/geekpark.png" },
         { name: "花瓣", url: "https://huaban.com/", desc: "设计灵感 素材模版", icon: "https://huaban.com/img/touch-icon-ipad-retina.png" },
         { name: "站酷", url: "https://www.zcool.com.cn/", desc: "图标 UI 素材", icon: "/img/z.png" },
+
+      ]
+    },
+    {
+      title: "办公",
+      links: [
+        { name: "iLovePDF", url: "https://www.ilovepdf.com/", desc: "PDF合并 拆分 转换", icon: "https://www.ilovepdf.com/img/app-icon.png" },
+        { name: "Moyuya", url: "https://pdf.moyuya.com/", desc: "PDF格式转换 OCR", icon: "https://pdf.moyuya.com/favicon.ico" },
+        { name: "Kimi", url: "https://www.kimi.com/kimiplus/cvvm7bkheutnihqi2100", desc: "Kimi PPT助手", icon: "https://www.kimi.com/favicon.ico" }
 
       ]
     },
