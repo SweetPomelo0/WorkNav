@@ -156,7 +156,8 @@ export default function Home() {
       links: [
         { name: "iLovePDF", url: "https://www.ilovepdf.com/", desc: "PDF合并 拆分 转换", icon: "https://www.ilovepdf.com/img/app-icon.png" },
         { name: "Moyuya", url: "https://pdf.moyuya.com/", desc: "PDF格式转换 OCR", icon: "https://pdf.moyuya.com/favicon.ico" },
-        { name: "Kimi", url: "https://www.kimi.com/kimiplus/cvvm7bkheutnihqi2100", desc: "Kimi PPT助手", icon: "https://www.kimi.com/favicon.ico" }
+        { name: "Kimi", url: "https://www.kimi.com/kimiplus/cvvm7bkheutnihqi2100", desc: "Kimi PPT助手", icon: "https://www.kimi.com/favicon.ico" },
+        { name: "Grammarly", url: "https://www.grammarly.com/", desc: "语法检查 拼写纠正", icon: "/img/grammarly.png" }
 
       ]
     },
